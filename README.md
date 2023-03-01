@@ -1,7 +1,15 @@
 # Lost and Found
-## Application for fast search of needful things
+> Application for fast search of needful things
 
 ## Technologies
+* Server:
+  * Node.js
+  * Express.js
+  * SQLite
+  * Sequelize
+* Client:
+  * React.js
+  * MaterialUI
 
 ## Server API
 ### /user
