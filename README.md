@@ -11,6 +11,12 @@
   * React.js
   * MaterialUI
 
+## Use cases
+### Registration
+### Login
+### Upload photo
+### Search photo
+
 ## Server API
 ### /user
 * `POST` register
@@ -27,6 +33,42 @@
 * `PUT /:id` update photo record
 * `GET /:id` get photo by ID
 * `GET /?query=abc` search photos by a query string
+
+### /tag
+* `POST` create photo record
+* `PUT /:id` update photo record
+* `GET /:id` get photo by ID
+* `GET /?query=abc` search photos by a query string
+
+## Database
+
+### User
+* ID
+* username
+* password
+* created_at
+
+### Token
+* ID
+* token
+* user_id
+* created_at
+
+### Photo
+* ID
+* user_id
+* name
+* created_at
+
+### Tag
+* ID
+* user_id
+* name
+* created_at
+
+### Photo to Tag
+* photo_id
+* tag_id
 
 ## Development
 ### Installation

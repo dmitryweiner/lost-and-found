@@ -1,17 +1,17 @@
 const {DataTypes} = require("sequelize");
 
-const Topic = sequelize => sequelize.define('Topic', {
+const Photo = sequelize => sequelize.define('Photo', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    theme: {
+    name: {
         type: DataTypes.STRING,
         allowNull: false
     }
 });
 
 module.exports = {
-    Topic
+    Photo
 }

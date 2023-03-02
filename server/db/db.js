@@ -15,7 +15,8 @@ const initDb = async () => {
         const models = [
             require('../models/user').User,
             require('../models/token').Token,
-            require('../models/topic').Topic,
+            require('../models/photo').Photo,
+            require('../models/tag').Tag,
         ];
         for(const model of models) {
             model(db);

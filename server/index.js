@@ -3,7 +3,6 @@ const cors = require('cors');
 const cookies = require("cookie-parser");
 const userRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
-const topicRouter = require("./routes/topic");
 const {initDb} = require("./db/db");
 
 const app = express();
@@ -27,7 +26,6 @@ app.get("/", (req, res) => {
 
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
-app.use("/topic", topicRouter);
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
