@@ -8,6 +8,7 @@ import Home from "./views/Home";
 import Layout from "./views/Layout";
 import LoginView from "./views/LoginView";
 import RegistrationView from "./views/RegistrationView";
+import FileUpload from "./views/FileUpload";
 
 function App() {
   return <>
@@ -16,6 +17,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path='/login' element={<LoginView/>} />
         <Route path='/registration' element={<RegistrationView/>} />
+        <Route path='/file' element={<FileUpload/>} />
       </Route>
     </Routes>
   </>;
