@@ -1,6 +1,8 @@
-const {getUserIdByToken} = require("../db/tokens");
-const {AuthError} = require("../errors");
+const md5 = require("md5");
 const {DataTypes} = require("sequelize");
+const {AuthError} = require("../errors");
+const {getDb} = require("../db");
+const {getUserIdByToken} = require("../models/token");
 
 const User = sequelize => sequelize.define('User', {
     id: {
@@ -26,5 +28,14 @@ module.exports = {
             throw new AuthError("Пользователь не авторизован");
         }
         return userId;
-    }
+    },
+    addUser: async (login, password) => {
+        return await getDb().models.User.create({
+            login,
+            password: md5(password) // TODO: use bcrypt
+        });
+    },
+    getUsers: async () => await getDb().models.User.findAll(),
+    getUserByLogin: async (login) => await getDb().models.User.findOne({where: {login}}),
+    getUserById: async (id) => await getDb().models.User.findByPk(id),
 }

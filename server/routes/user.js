@@ -1,7 +1,6 @@
 const express = require('express');
-const {getUserIdByToken} = require("../db/tokens");
-const {getUserByLogin, addUser, getUserById} = require("../db/users");
-const {checkAuth} = require("../models/user");
+const {getUserIdByToken} = require("../models/token");
+const {checkAuth, getUserByLogin, addUser, getUserById} = require("../models/user");
 const {BadRequestError} = require("../errors");
 const userRouter = express.Router();
 

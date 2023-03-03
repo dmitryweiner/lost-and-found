@@ -1,10 +1,9 @@
 const express = require('express');
 const md5 = require('md5');
 const authRouter = express.Router();
-const {getUserByLogin} = require("../db/users");
-const {addToken, getUserIdByToken, deleteByToken} = require("../db/tokens");
 const {NotFoundError, BadRequestError, AuthError} = require("../errors");
-const {checkAuth} = require("../models/user");
+const {addToken, getUserIdByToken, deleteByToken} = require("../models/token");
+const {checkAuth, getUserByLogin} = require("../models/user");
 
 const COOKIE_NAME = "token";
 
