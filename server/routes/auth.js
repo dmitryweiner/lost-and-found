@@ -1,9 +1,10 @@
 const express = require('express');
 const md5 = require('md5');
 const authRouter = express.Router();
-const {NotFoundError, BadRequestError, AuthError} = require("../errors");
-const {addToken, getUserIdByToken, deleteByToken} = require("../models/token");
-const {checkAuth, getUserByLogin} = require("../models/user");
+const {NotFoundError, BadRequestError} = require("../errors");
+const {addToken, deleteByToken} = require("../models/token");
+const {getUserByLogin} = require("../models/user");
+const {auth} = require("../middleware");
 
 const COOKIE_NAME = "token";
 
@@ -33,10 +34,9 @@ authRouter.post("/", async (req, res, next) => {
     }
 });
 
-authRouter.delete("/", async (req, res, next) => {
+authRouter.delete("/", auth, async (req, res, next) => {
     try {
         const token = req.cookies.token;
-        await checkAuth(token);
 
         // delete token from DB
         await deleteByToken(token);

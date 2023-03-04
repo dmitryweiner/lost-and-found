@@ -22,13 +22,6 @@ const User = sequelize => sequelize.define('User', {
 
 module.exports = {
     User,
-    checkAuth: async (token) => {
-        const userId = await getUserIdByToken(token);
-        if (!userId) {
-            throw new AuthError("Пользователь не авторизован");
-        }
-        return userId;
-    },
     addUser: async (login, password) => {
         return await getDb().models.User.create({
             login,

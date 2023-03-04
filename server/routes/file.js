@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const uuid = require('uuid');
-const {BadRequestError} = require("../errors");
+const {auth} = require("../middleware");
 const fileRouter = express.Router();
 
 const DIR = './public/';
@@ -33,7 +33,7 @@ const upload = multer({
 
 //const upload = multer({ dest: './public/data/uploads/' })
 
-fileRouter.post("/", upload.single('photo'), (req, res) => {
+fileRouter.post("/", [auth, upload.single('photo')], (req, res) => {
   console.log('fileRouter.post("/"', req.file);
   return res.status(200).json({filename: req.file.filename});
 });

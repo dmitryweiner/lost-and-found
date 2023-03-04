@@ -1,14 +1,14 @@
 const express = require('express');
 const {getUserIdByToken} = require("../models/token");
-const {checkAuth, getUserByLogin, addUser, getUserById} = require("../models/user");
+const {getUserByLogin, addUser, getUserById} = require("../models/user");
 const {BadRequestError} = require("../errors");
+const {auth} = require("../middleware");
 const userRouter = express.Router();
 
-userRouter.get("/", async (req, res, next) => {
+userRouter.get("/", auth, async (req, res, next) => {
     try {
         const token = req.cookies.token;
-        const userId = await checkAuth(token);
-
+        const userId = await getUserIdByToken(token);
         const user = await getUserById(userId);
         res.status(200).json(user);
     } catch (err) {
