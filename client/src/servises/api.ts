@@ -10,6 +10,11 @@ type RegistrationData = {
   password: string;
 };
 
+type PhotoData = {
+  tags: string[],
+  filename: string
+};
+
 const errorHandler = async (response: Response) => {
   if (response.status !== 200) {
     const responseData = await response.json();
@@ -58,4 +63,29 @@ export const API = {
       return await response.json();
     },
   },
+  file: {
+    upload: async (formData: FormData) => {
+      const response = await fetch(`${BASE_URL}/file`, {
+        credentials: "include",
+        method: "POST",
+        body: formData
+      });
+      await errorHandler(response);
+      return await response.json();
+    }
+  },
+  photo: {
+    create: async ({tags, filename}: PhotoData) => {
+      const response = await fetch(`${BASE_URL}/photo`, {
+        credentials: "include",
+        method: "post",
+        body: JSON.stringify({
+          tags,
+          filename
+        })
+      });
+      await errorHandler(response);
+      return await response.json();
+    }
+  }
 };

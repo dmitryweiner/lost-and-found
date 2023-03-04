@@ -1,4 +1,5 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
+import {API} from "../servises/api";
 
 const API_URL = "http://localhost:3001";
 
@@ -21,31 +22,11 @@ const PhotoUpload = () => {
         setError("");
         const formData = new FormData()
         formData.append('photo', file);
-        let response = await fetch(`${API_URL}/file`, {
-          credentials: "include",
-          method: "post",
-          body: formData
-        });
-        if (response.status !== 200) {
-          const error = await response.json();
-          throw new Error(error.error);
-        }
-        const data = await response.json();
+        const data = await API.file.upload(formData);
         const filename = data.filename;
         const tagsArray = tags.split(" ").filter(it => it !== "");
 
-        response = await fetch(`${API_URL}/photo`, {
-          credentials: "include",
-          method: "post",
-          body: JSON.stringify({
-            tags: tagsArray,
-            filename
-          })
-        });
-        if (response.status !== 200) {
-          const error = await response.json();
-          throw new Error(error.error);
-        }
+        const response = await API.photo.create({tags: tagsArray, filename});
       } catch (e) {
         if (e instanceof Error) {
           setError(e.message);
