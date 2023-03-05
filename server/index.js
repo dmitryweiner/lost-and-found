@@ -1,10 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const cookies = require("cookie-parser");
+const {initDb} = require("./db");
 const userRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
 const fileRouter = require("./routes/file");
-const {initDb} = require("./db");
+const photoRouter = require("./routes/photo");
+const tagRouter = require("./routes/tag");
 
 const app = express();
 
@@ -28,6 +30,8 @@ app.get("/", (req, res) => {
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/file", fileRouter);
+app.use("/photo", photoRouter);
+app.use("/tag", tagRouter);
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

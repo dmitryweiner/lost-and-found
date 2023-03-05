@@ -78,7 +78,10 @@ export const API = {
     create: async ({tags, filename}: PhotoData) => {
       const response = await fetch(`${BASE_URL}/photo`, {
         credentials: "include",
-        method: "post",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
           tags,
           filename

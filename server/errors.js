@@ -29,10 +29,19 @@ class BadRequestError extends Error {
         this.status = 400;
     }
 }
+class NotImplementedError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = 'NotImplementedError';
+        this.message = 'Not implemented yet';
+        this.status = 501;
+    }
+}
 
 module.exports = {
     AuthError,
     NotFoundError,
     NotAllowedError,
-    BadRequestError
+    BadRequestError,
+    NotImplementedError
 };

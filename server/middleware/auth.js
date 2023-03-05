@@ -1,5 +1,5 @@
-const {getUserIdByToken} = require("./models/token");
-const {AuthError} = require("./errors");
+const {getUserIdByToken} = require("../models/token");
+const {AuthError} = require("../errors");
 
 module.exports = {
   auth: async (req, res, next) => {
@@ -9,6 +9,7 @@ module.exports = {
       if (!userId) {
         throw new AuthError("Пользователь не авторизован");
       }
+      res.locals.userId = userId;
       next();
     } catch (err) {
       next(err);

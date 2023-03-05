@@ -2,7 +2,7 @@ const express = require('express');
 const {getUserIdByToken} = require("../models/token");
 const {getUserByLogin, addUser, getUserById} = require("../models/user");
 const {BadRequestError} = require("../errors");
-const {auth} = require("../middleware");
+const {auth} = require("../middleware/auth");
 const userRouter = express.Router();
 
 userRouter.get("/", auth, async (req, res, next) => {

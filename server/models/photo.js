@@ -6,7 +6,7 @@ const Photo = sequelize => sequelize.define('Photo', {
         autoIncrement: true,
         primaryKey: true
     },
-    name: {
+    filename: {
         type: DataTypes.STRING,
         allowNull: false
     }

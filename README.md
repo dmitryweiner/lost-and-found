@@ -82,3 +82,14 @@ npm i
 ```shell
 npm start
 ```
+
+## Todo
+* Upload photo form + server route.
+* Main page: 
+  * get first 10 photos
+  * list of tags
+  * search by tag
+* React query for API call status.
+* [Centralized error handling with popup](https://tkdodo.eu/blog/react-query-error-handling). 
+* Check auth status on startup.
+  * Redirect to /login if not authorized.

@@ -1,8 +1,6 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {API} from "../servises/api";
 
-const API_URL = "http://localhost:3001";
-
 const PhotoUpload = () => {
   const [file, setFile] = useState<File | undefined>();
   const [tags, setTags] = useState("");

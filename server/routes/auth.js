@@ -4,7 +4,7 @@ const authRouter = express.Router();
 const {NotFoundError, BadRequestError} = require("../errors");
 const {addToken, deleteByToken} = require("../models/token");
 const {getUserByLogin} = require("../models/user");
-const {auth} = require("../middleware");
+const {auth} = require("../middleware/auth");
 
 const COOKIE_NAME = "token";
 
