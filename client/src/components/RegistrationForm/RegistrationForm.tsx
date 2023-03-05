@@ -72,7 +72,7 @@ export default function RegistrationForm({onSubmit}: FormProps) {
           {passwordError}
         </div>}
       </div>
-      <button type="submit">Войти</button>
+      <button type="submit">Зарегистрироваться</button>
     </form>
   </>;
 }

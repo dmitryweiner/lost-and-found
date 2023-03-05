@@ -1,10 +1,10 @@
 const multer = require("multer");
 const uuid = require("uuid");
-const DIR = './public/';
+const PUBLIC_FILES_DIR = './public/';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, DIR);
+    cb(null, PUBLIC_FILES_DIR);
   },
   filename: (req, file, cb) => {
     const fileName = file.originalname.toLowerCase().split(' ').join('-');
@@ -24,5 +24,6 @@ const upload = multer({
   }
 });
 module.exports = {
-  upload
+  upload,
+  PUBLIC_FILES_DIR
 };

@@ -89,6 +89,25 @@ export const API = {
       });
       await errorHandler(response);
       return await response.json();
+    },
+    getAll: async (query: string) => {
+      const response = await fetch(`${BASE_URL}/photo/?query=${query}`, {
+        credentials: "include",
+        method: "GET"
+      });
+      await errorHandler(response);
+      return await response.json();
+    }
+  },
+  tag: {
+    getAll: async () => {
+      const response = await fetch(`${BASE_URL}/tag`, {
+        credentials: "include",
+        method: "GET"
+      });
+      await errorHandler(response);
+      return await response.json();
     }
   }
+
 };

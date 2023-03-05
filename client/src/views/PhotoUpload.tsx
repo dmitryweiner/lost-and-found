@@ -1,7 +1,9 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {API} from "../servises/api";
+import {useNavigate} from "react-router-dom";
 
 const PhotoUpload = () => {
+  const navigate = useNavigate();
   const [file, setFile] = useState<File | undefined>();
   const [tags, setTags] = useState("");
   const [error, setError] = useState("");
@@ -25,6 +27,7 @@ const PhotoUpload = () => {
         const tagsArray = tags.split(" ").filter(it => it !== "");
 
         const response = await API.photo.create({tags: tagsArray, filename});
+        navigate("/");
       } catch (e) {
         if (e instanceof Error) {
           setError(e.message);

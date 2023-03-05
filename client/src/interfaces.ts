@@ -17,3 +17,13 @@ export type Context = {
   handleCheck: (id: string) => void;
   handleDelete: (id: string) => void;
 }
+
+export type Tag = {
+  id: number;
+  name: string;
+}
+
+export type Photo = {
+  id: number;
+  filename: string;
+}

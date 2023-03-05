@@ -7,6 +7,7 @@ const authRouter = require("./routes/auth");
 const fileRouter = require("./routes/file");
 const photoRouter = require("./routes/photo");
 const tagRouter = require("./routes/tag");
+const {PUBLIC_FILES_DIR} = require("./middleware/upload");
 
 const app = express();
 
@@ -32,6 +33,8 @@ app.use("/user", userRouter);
 app.use("/file", fileRouter);
 app.use("/photo", photoRouter);
 app.use("/tag", tagRouter);
+
+app.use("/public", express.static(PUBLIC_FILES_DIR))
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

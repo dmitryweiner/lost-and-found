@@ -47,10 +47,23 @@ photoRouter.post("/", auth, async (req, res, next) => {
 });
 
 photoRouter.get("/", auth, async (req, res) => {
-  // TODO: if query - search
+  const db = await getDb();
   // @see https://blog.bitsrc.io/pagination-with-sequelize-explained-83054df6e041
-  // else list all
-  const photos = await getDb().models.Photo.findAll({where: {userId: res.locals.userId}});
+  const query = req.query?.query ?? "";
+
+  let photos = []
+  if (!query) {
+    photos = await db.models.Photo.findAll({where: {userId: res.locals.userId}});
+  } else {
+    const tag = await db.models.Tag.findOne({where: {name: query}});
+    photos = await db.models.Photo.findAll({
+      where: {userId: res.locals.userId},
+      include: [{
+        model: db.models.Tag,
+        where: {id: tag.id}
+      }]
+    });
+  }
   res.json(photos);
 });
 
