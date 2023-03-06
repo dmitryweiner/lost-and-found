@@ -1,113 +1,52 @@
+import axios from "axios";
+import history from "../history";
+import {FileType, LoginData, Photo, PhotoData, RegistrationData, Tag, User} from "../interfaces";
+
 export const BASE_URL = "http://localhost:3001";
 
-type LoginData = {
-  login: string;
-  password: string;
-};
-
-type RegistrationData = {
-  login: string;
-  password: string;
-};
-
-type PhotoData = {
-  tags: string[],
-  filename: string
-};
-
-const errorHandler = async (response: Response) => {
-  if (response.status !== 200) {
-    const responseData = await response.json();
-    throw Error(responseData.message);
+const client = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json"
   }
-};
+});
+
+client.interceptors.response.use(
+  response => response.data,
+  async error => {
+    if (error.response.status !== 200) {
+      if (error.response.status === 401) {
+        return history.replace("/login");
+      }
+      return console.log("Here will be toast: ", error.response);
+    } else {
+      return Promise.reject(error);
+    }
+  });
+
 
 export const API = {
   auth: {
-    login: async (data: LoginData) => {
-      const response = await fetch(`${BASE_URL}/auth`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      });
-      await errorHandler(response);
-    },
-    logout: async () => {
-      const response = await fetch(`${BASE_URL}/auth`, {
-        method: "DELETE",
-        credentials: "include",
-      });
-      await errorHandler(response);
-    },
+    login: (data: LoginData) => client.post("/auth", data),
+    logout: () => client.delete("/auth"),
   },
   user: {
-    register: async (data: RegistrationData) => {
-      const response = await fetch(`${BASE_URL}/user`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      });
-      await errorHandler(response);
-    },
-    getCurrentUser: async () => {
-      const response = await fetch(`${BASE_URL}/user`, {
-        credentials: "include",
-        method: "GET"
-      });
-      await errorHandler(response);
-      return await response.json();
-    },
+    register: (data: RegistrationData) => client.post("/user", data),
+    getCurrentUser: () => client.get<never, User>("/user"),
   },
   file: {
-    upload: async (formData: FormData) => {
-      const response = await fetch(`${BASE_URL}/file`, {
-        credentials: "include",
-        method: "POST",
-        body: formData
-      });
-      await errorHandler(response);
-      return await response.json();
-    }
+    upload: (formData: FormData) => client.post<never, FileType>("/file", formData)
   },
   photo: {
-    create: async ({tags, filename}: PhotoData) => {
-      const response = await fetch(`${BASE_URL}/photo`, {
-        credentials: "include",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          tags,
-          filename
-        })
-      });
-      await errorHandler(response);
-      return await response.json();
-    },
-    getAll: async (query: string) => {
-      const response = await fetch(`${BASE_URL}/photo/?query=${query}`, {
-        credentials: "include",
-        method: "GET"
-      });
-      await errorHandler(response);
-      return await response.json();
-    }
+    create: ({tags, filename}: PhotoData) => client.post<never, Photo>("/photo", {
+      tags,
+      filename
+    }),
+    getAll: (query: string) => client.get<never, Photo[]>(`/photo/?query=${query}`)
   },
   tag: {
-    getAll: async () => {
-      const response = await fetch(`${BASE_URL}/tag`, {
-        credentials: "include",
-        method: "GET"
-      });
-      await errorHandler(response);
-      return await response.json();
-    }
+    getAll: () => client.get<never, Tag[]>("/tag")
   }
 
 };

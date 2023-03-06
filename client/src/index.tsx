@@ -3,8 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { HashRouter as Router } from 'react-router-dom';
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
+import history from "./history";
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import theme from "./theme";
+import {CssBaseline, ThemeProvider} from "@mui/material";
+
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
@@ -12,11 +16,14 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Router>
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline/>
+      <HistoryRouter history={history}>
+        <QueryClientProvider client={queryClient}>
+          <App/>
+        </QueryClientProvider>
+      </HistoryRouter>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

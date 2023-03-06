@@ -1,21 +1,22 @@
-export type Todo = {
-  id: string;
-  title: string;
-  checked: boolean;
-}
+export type LoginData = {
+  login: string;
+  password: string;
+};
 
-export type TodoList = Todo[];
+export type RegistrationData = {
+  login: string;
+  password: string;
+};
 
-export enum Filter {
-  ALL = "Все",
-  DONE = "Сделанные",
-  NOT_DONE = "Не сделанные"
-}
+export type PhotoData = {
+  tags: string[],
+  filename: string
+};
 
-export type Context = {
-  todos: TodoList,
-  handleCheck: (id: string) => void;
-  handleDelete: (id: string) => void;
+export type User = {
+  id: number;
+  login: string;
+  password: string;
 }
 
 export type Tag = {
@@ -25,5 +26,9 @@ export type Tag = {
 
 export type Photo = {
   id: number;
+  filename: string;
+}
+
+export type FileType = {
   filename: string;
 }
