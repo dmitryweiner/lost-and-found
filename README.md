@@ -8,6 +8,7 @@
   * SQLite
   * Sequelize
 * Client:
+  * Axios 
   * React.js
   * MaterialUI
 
@@ -74,7 +75,7 @@
 ### Installation
 
 ```shell
-npm i
+npm install
 ```
 
 ### Run both server and client
@@ -84,15 +85,15 @@ npm start
 ```
 
 ## Todo
-* ~~Upload photo form + server route~~.
+* [x] Upload photo form + server route.
 * Main page: 
-  * ~~get first 10 photos~~
-  * ~~list of tags~~
-  * ~~search by tag~~
+  * [x] get all photos
+  * [ ] create pagination
+  * [x] list of tags
+  * [x] search by tag
 * Networking:
-  * Axios (get rid of credentials: include).
-  * React query for API call status.
-  * [Centralized error handling with popup](https://tkdodo.eu/blog/react-query-error-handling).
-* Check auth status on startup.
-  * Redirect to /login if not authorized.
-* Material UI fancy design.
+  * [x] Axios (get rid of credentials: include).
+  * [ ] React query for API call status.
+  * [x] [Centralized error handling with popup](https://tkdodo.eu/blog/react-query-error-handling).
+* [x] Redirect to /login if not authorized.
+* [ ] Material UI fancy design.

@@ -1,6 +1,7 @@
 import axios from "axios";
 import history from "../history";
 import {FileType, LoginData, Photo, PhotoData, RegistrationData, Tag, User} from "../interfaces";
+import toast from "react-hot-toast";
 
 export const BASE_URL = "http://localhost:3001";
 
@@ -15,13 +16,10 @@ const client = axios.create({
 client.interceptors.response.use(
   response => response.data,
   async error => {
-    if (error.response.status !== 200) {
-      if (error.response.status === 401) {
-        return history.replace("/login");
-      }
-      return console.log("Here will be toast: ", error.response);
-    } else {
-      return Promise.reject(error);
+    let message = error.response?.data?.error ?? error.message;
+    toast.error(message);
+    if (error.response.status === 401) {
+      return history.replace("/login");
     }
   });
 
@@ -46,7 +44,8 @@ export const API = {
     getAll: (query: string) => client.get<never, Photo[]>(`/photo/?query=${query}`)
   },
   tag: {
-    getAll: () => client.get<never, Tag[]>("/tag")
+    getAll: () => client.get<never, Tag[]>("/tag"),
+    getById: (id: number) => client.get<never, Tag>(`/tag/${id}`)
   }
 
 };
