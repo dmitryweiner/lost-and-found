@@ -20,14 +20,14 @@ export default function LoginForm({onSubmit}: FormProps) {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  /* TODO: use final-form */
   const isValid = (): boolean => {
     let result = true;
 
-    // очищаем ошибки
     setLoginError("");
 
     if (!/^([a-z0-9]{6,20})$/.test(login)) {
-      setLoginError("Login should be from 6 to 20 chars length.");
+      setLoginError("Login should be from 6 to 20 chars and consist of latin letters and numbers.");
       result = false;
     }
 
@@ -37,7 +37,6 @@ export default function LoginForm({onSubmit}: FormProps) {
     }
 
     setPasswordError("");
-
     if (password.length === 0) {
       setPasswordError("Password should not be empty.");
       result = false;

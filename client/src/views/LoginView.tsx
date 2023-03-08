@@ -14,18 +14,13 @@ const LoginView = () => {
         navigate("/");
       }, 1000);
     } catch (e) {
-      console.log(e);
     }
   };
   const onSubmit = (data: LoginFormData) => {
     authRequest(data);
   };
 
-  return (
-    <div>
-      <LoginForm onSubmit={onSubmit}/>
-    </div>
-  );
+  return <LoginForm onSubmit={onSubmit}/>;
 };
 
 export default LoginView;

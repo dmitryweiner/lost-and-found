@@ -2,38 +2,27 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import RegistrationForm, { RegistrationFormData } from "../components/RegistrationForm/RegistrationForm";
 import { API } from "../servises/api";
+import toast from "react-hot-toast";
 
 const RegistrationView = () => {
   const navigate = useNavigate();
-  const [result, setResult] = useState("");
-  const [error, setError] = useState("");
+
+  const registrationRequest = async (data: RegistrationFormData) => {
+    try {
+      await API.user.register(data);
+      toast.success("User successfully created.");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+    } catch (e) {
+      console.error(e);
+    }
+  };
   const onSubmit = (data: RegistrationFormData) => {
-    // fetch
-    const registrationRequest = async () => {
-      setResult("");
-      setError("");
-      try {
-        await API.user.register(data);
-        setResult("Пользователь успешно создан!");
-        setTimeout(() => {
-          navigate("/login");
-        }, 2000);
-      } catch (e) {
-        if (e instanceof Error) {
-          setError(e.message);
-        }
-      }
-    };
-    registrationRequest();
+    registrationRequest(data);
   };
 
-  return (
-    <div>
-      <RegistrationForm onSubmit={onSubmit}/>
-      {result && <>{result}</>}
-      {error && <>{error}</>}
-    </div>
-  );
+  return <RegistrationForm onSubmit={onSubmit}/>;
 };
 
 export default RegistrationView;
