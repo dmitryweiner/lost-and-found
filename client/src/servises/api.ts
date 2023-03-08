@@ -21,6 +21,7 @@ client.interceptors.response.use(
     if (error.response.status === 401) {
       return history.replace("/login");
     }
+    return Promise.reject(error);
   });
 
 

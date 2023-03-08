@@ -13,11 +13,11 @@ authRouter.post("/", async (req, res, next) => {
         const user = await getUserByLogin(req.body.login);
 
         if (!user) {
-            throw new NotFoundError("Такой пользователь не найден");
+            throw new NotFoundError("User not found.");
         }
 
         if (user.password !== md5(req.body.password)) { // TODO: hash
-            throw new BadRequestError("Пароль неверный");
+            throw new BadRequestError("Wrong password.");
         }
 
         const token = await addToken(user.id);

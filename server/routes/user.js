@@ -21,7 +21,7 @@ userRouter.post("/", async (req, res, next) => {
     try {
         const user = await getUserByLogin(req.body.login);
         if (user) {
-            throw new BadRequestError("Такой пользователь уже есть");
+            throw new BadRequestError("User with this login already exists.");
         }
 
         const newUser = await addUser(req.body.login, req.body.password);
