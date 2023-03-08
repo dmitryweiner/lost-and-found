@@ -14,6 +14,7 @@ const theme = createTheme({
       main: red.A400,
     },
   },
+  spacing: 10
 });
 
 export default theme;

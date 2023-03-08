@@ -4,7 +4,7 @@ import {Container} from "@mui/material";
 
 const Layout = () => {
   return <>
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="md">
       <Outlet/>
     </Container>
   </>;

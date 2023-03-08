@@ -1,8 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {API, BASE_URL} from "../servises/api";
 import {Photo, Tag} from "../interfaces";
+import {
+  Box,
+  Button, Card,
+  CardActions,
+  CardContent,
+  CardMedia, Chip,
+  Container,
+  Grid,
+  Paper,
+  Stack,
+  Typography
+} from "@mui/material";
+import {useNavigate} from "react-router-dom";
+import { styled } from '@mui/material/styles';
+
+const ListItem = styled('li')(({ theme }) => ({
+  margin: theme.spacing(0.5),
+}));
 
 function Home() {
+  const navigate = useNavigate();
   const [tags, setTags] = useState<Tag[]>([]);
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [query, setQuery] = useState("");
@@ -27,15 +46,70 @@ function Home() {
   }, [query]);
 
   return <>
-    <h3>Home</h3>
-    <div>
-      <h4>Tags:</h4>
-      {tags.map(tag => <span onClick={() => setQuery(tag.name)}>{tag.name}{" "}</span>)}
-    </div>
-    <div>
-      <h4>Photos:</h4>
-      {photos.map(photo => <img key={photo.id} src={`${BASE_URL}/public/${photo.filename}`} width={200}/>)}
-    </div>
+    <Box
+      sx={{
+        py: 1,
+      }}
+    >
+      <Container maxWidth="sm">
+        <Typography variant="h5" align="center" color="text.secondary" paragraph>
+          Upload your photos and find them instantly by tags
+        </Typography>
+        <Stack
+          direction="row"
+          spacing={2}
+          justifyContent="center"
+        >
+          <Button variant="contained" onClick={() => navigate("/photo")}>Upload photo</Button>
+        </Stack>
+      </Container>
+    </Box>
+    <Container sx={{
+      py: 1,
+    }}
+    >
+      <Paper
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          listStyle: 'none',
+          p: 0.5,
+          m: 0,
+        }}
+        component="ul"
+      >
+        {tags.map((tag) => <ListItem key={tag.id}>
+          <Chip
+            onClick={() => setQuery(tag.name)}
+            label={tag.name}
+          />
+        </ListItem>)}
+      </Paper>
+    </Container>
+    <Container sx={{
+      py: 1,
+    }}>
+      {/* End hero unit */}
+      <Grid container spacing={4}>
+        {photos.map((photo) => (
+          <Grid item key={photo.id} xs={12} sm={6} md={4}>
+            <Card
+              sx={{height: '100%', display: 'flex', flexDirection: 'column'}}
+            >
+              <CardMedia
+                component="img"
+                image={`${BASE_URL}/public/${photo.filename}`}
+              />
+              <CardActions>
+                <Button size="small">View</Button>
+                <Button size="small">Delete</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   </>;
 }
 
