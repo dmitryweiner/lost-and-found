@@ -9,6 +9,7 @@
   * Sequelize
 * Client:
   * Axios 
+  * React Query
   * React.js
   * MaterialUI
 
@@ -88,12 +89,12 @@ npm start
 * [x] Upload photo form + server route.
 * Main page: 
   * [x] get all photos
-  * [ ] create pagination
   * [x] list of tags
   * [x] search by tag
+  * [ ] Home page with pagination or infinite loading
 * Networking:
   * [x] Axios (get rid of credentials: include).
-  * [ ] React query for API call status.
   * [x] [Centralized error handling with popup](https://tkdodo.eu/blog/react-query-error-handling).
+  * [ ] React query for API call status.
 * [x] Redirect to /login if not authorized.
-* [ ] Material UI fancy design.
+* [x] Material UI fancy design.
