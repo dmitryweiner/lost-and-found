@@ -8,8 +8,8 @@ import Home from "./views/Home";
 import Layout from "./views/Layout";
 import LoginView from "./views/LoginView";
 import RegistrationView from "./views/RegistrationView";
-import PhotoUpload from "./views/PhotoUpload";
-import {AppBar, Toolbar, Typography, Link, Button} from "@mui/material";
+import PhotoUploadView from "./views/PhotoUploadView";
+import {AppBar, Toolbar, Typography, Button} from "@mui/material";
 import CameraIcon from '@mui/icons-material/PhotoCamera';
 import {API} from "./servises/api";
 import {User} from "./interfaces";
@@ -64,7 +64,7 @@ function App() {
         <Route index element={<Home/>}/>
         <Route path='/login' element={<LoginView/>}/>
         <Route path='/registration' element={<RegistrationView/>}/>
-        <Route path='/photo' element={<PhotoUpload/>}/>
+        <Route path='/photo' element={<PhotoUploadView/>}/>
       </Route>
     </Routes>
   </>;

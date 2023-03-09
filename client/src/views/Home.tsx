@@ -5,8 +5,8 @@ import {
   Box,
   Button, Card,
   CardActions,
-  CardContent,
-  CardMedia, Chip,
+  CardMedia,
+  Chip,
   Container,
   Grid,
   Paper,
@@ -39,11 +39,11 @@ function Home() {
   useEffect(() => {
     getPhotos();
     getTags();
-  }, []);
+  }, [getPhotos, getPhotos]);
 
   useEffect(() => {
     getPhotos();
-  }, [query]);
+  }, [query, getPhotos]);
 
   return <>
     <Box
@@ -53,7 +53,7 @@ function Home() {
     >
       <Container maxWidth="sm">
         <Typography variant="h5" align="center" color="text.secondary" paragraph>
-          Upload your photos and find them instantly by tags
+          Upload your photos and find them instantly by clicking on tags.
         </Typography>
         <Stack
           direction="row"
