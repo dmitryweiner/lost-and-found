@@ -7,7 +7,7 @@ module.exports = {
       const token = req.cookies["token"] ?? "";
       const userId = await getUserIdByToken(token);
       if (!userId) {
-        throw new AuthError("Пользователь не авторизован");
+        throw new AuthError("User not authorized");
       }
       res.locals.userId = userId;
       next();

@@ -27,23 +27,33 @@ function Home() {
   const [query, setQuery] = useState("");
 
   const getPhotos = async () => {
-    const photos = await API.photo.getAll(query);
-    setPhotos(photos);
+    try {
+      const photos = await API.photo.getAll(query);
+      setPhotos(photos);
+    } catch (e) {
+      console.error(photos);
+    }
   }
 
   const getTags = async () => {
-    const tags = await API.tag.getAll();
-    setTags(tags);
+    try {
+      const tags = await API.tag.getAll();
+      setTags(tags);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   useEffect(() => {
     getPhotos();
     getTags();
-  }, [getPhotos, getPhotos]);
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     getPhotos();
-  }, [query, getPhotos]);
+    // eslint-disable-next-line
+  }, [query]);
 
   return <>
     <Box

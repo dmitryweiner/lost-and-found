@@ -98,3 +98,5 @@ npm start
   * [ ] React query for API call status.
 * [x] Redirect to /login if not authorized.
 * [x] Material UI fancy design.
+* [ ] Test API with Supertest.
+* [ ] Deploy to render.com.

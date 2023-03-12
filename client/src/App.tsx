@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
+  Navigate,
   Route,
   Routes, useNavigate
 } from 'react-router-dom';
@@ -9,32 +10,47 @@ import Layout from "./views/Layout";
 import LoginView from "./views/LoginView";
 import RegistrationView from "./views/RegistrationView";
 import PhotoUploadView from "./views/PhotoUploadView";
-import {AppBar, Toolbar, Typography, Button} from "@mui/material";
+import {AppBar, Toolbar, Typography, Button, Box, CircularProgress} from "@mui/material";
 import CameraIcon from '@mui/icons-material/PhotoCamera';
-import {API} from "./servises/api";
+import {useCurrentUserQuery, useLogoutMutation} from "./servises/queries";
 import {User} from "./interfaces";
+
+type ProtectedRouteType = {
+  user?: User,
+  children: JSX.Element
+}
+
+const ProtectedRoute = ({ user, children }: ProtectedRouteType) => {
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+};
 
 function App() {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User | undefined>();
+  const currentUserQuery = useCurrentUserQuery();
+  const logoutMutation = useLogoutMutation();
 
-  const checkAuth = async () => {
-    const user = await API.user.getCurrentUser();
-    setUser(user);
-  };
-
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const logoutRequest = async () => {
-    await API.auth.logout();
-    setUser(undefined);
-  };
+  const user = (currentUserQuery.data && !currentUserQuery.isError) ? currentUserQuery.data : undefined;
 
   const handleLogout = () => {
-    logoutRequest();
+    logoutMutation.mutate();
   };
+
+  if (currentUserQuery.isFetching) {
+    return <Box
+      sx={{
+        marginTop: 8,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      <CircularProgress color="inherit" />
+    </Box>;
+  }
 
   return <>
     <AppBar position="static">
@@ -61,10 +77,10 @@ function App() {
     </AppBar>
     <Routes>
       <Route path='/' element={<Layout/>}>
-        <Route index element={<Home/>}/>
+        <Route index element={<ProtectedRoute user={user}><Home/></ProtectedRoute>}/>
+        <Route path='/photo' element={<ProtectedRoute user={user}><PhotoUploadView/></ProtectedRoute>}/>
         <Route path='/login' element={<LoginView/>}/>
         <Route path='/registration' element={<RegistrationView/>}/>
-        <Route path='/photo' element={<PhotoUploadView/>}/>
       </Route>
     </Routes>
   </>;

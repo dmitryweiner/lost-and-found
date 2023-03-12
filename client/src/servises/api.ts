@@ -1,9 +1,11 @@
 import axios from "axios";
-import history from "../history";
 import {FileType, LoginData, Photo, PhotoData, RegistrationData, Tag, User} from "../interfaces";
-import toast from "react-hot-toast";
 
-export const BASE_URL = "http://localhost:3001";
+export type ErrorResponse = {
+      error: string;
+};
+
+export const BASE_URL = process.env.REACT_APP_API_URL;
 
 const client = axios.create({
   baseURL: BASE_URL,
@@ -15,14 +17,8 @@ const client = axios.create({
 
 client.interceptors.response.use(
   response => response.data,
-  async error => {
-    let message = error.response?.data?.error ?? error.message;
-    toast.error(message);
-    if (error.response.status === 401) {
-      return history.replace("/login");
-    }
-    return Promise.reject(error);
-  });
+  error => Promise.reject(error)
+);
 
 
 export const API = {
