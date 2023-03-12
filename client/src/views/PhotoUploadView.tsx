@@ -4,9 +4,13 @@ import {useNavigate} from "react-router-dom";
 import {Box, Button, Typography} from "@mui/material";
 import {MuiFileInput} from "mui-file-input";
 import {MuiChipsInput} from "mui-chips-input";
+import {useCreatePhotoMutation, useFileUploadMutation} from "../servises/queries";
+import {FileType} from "../interfaces";
 
 const PhotoUploadView = () => {
   const navigate = useNavigate();
+  const createPhotoMutation = useCreatePhotoMutation();
+  const fileUploadMutation = useFileUploadMutation();
   const [file, setFile] = useState<File | null>(null);
   const [tags, setTags] = useState<string[]>([]);
 
@@ -15,9 +19,9 @@ const PhotoUploadView = () => {
       try {
         const formData = new FormData()
         formData.append('photo', file);
-        const data = await API.file.upload(formData);
+        const data = await fileUploadMutation.mutateAsync(formData);
         const filename = data.filename;
-        await API.photo.create({tags, filename});
+        await createPhotoMutation.mutateAsync({tags, filename});
         navigate("/");
       } catch (e) {
         console.error(e);

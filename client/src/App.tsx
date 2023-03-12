@@ -14,15 +14,16 @@ import {AppBar, Toolbar, Typography, Button, Box, CircularProgress} from "@mui/m
 import CameraIcon from '@mui/icons-material/PhotoCamera';
 import {useCurrentUserQuery, useLogoutMutation} from "./servises/queries";
 import {User} from "./interfaces";
+import PersonIcon from '@mui/icons-material/Person';
 
 type ProtectedRouteType = {
   user?: User,
   children: JSX.Element
 }
 
-const ProtectedRoute = ({ user, children }: ProtectedRouteType) => {
+const ProtectedRoute = ({user, children}: ProtectedRouteType) => {
   if (!user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace/>;
   }
 
   return children;
@@ -48,7 +49,7 @@ function App() {
         alignItems: 'center',
       }}
     >
-      <CircularProgress color="inherit" />
+      <CircularProgress color="inherit"/>
     </Box>;
   }
 
@@ -61,15 +62,17 @@ function App() {
         </Typography>
         {user ?
           <>
-            <Typography variant="body1" color="inherit">
-              You are logged as <b>{user.login}</b>
+            <PersonIcon/>
+            <Typography variant="body1" color="inherit" sx={{ fontWeight: 'bold' }}>
+              {user.login}
             </Typography>
             <Button onClick={handleLogout} href="#" variant="outlined" color="secondary" sx={{my: 1, mx: 1.5}}>
               Logout
             </Button>
           </>
           :
-          <Button onClick={() => navigate("/login")} href="#" variant="outlined" color="secondary" sx={{my: 1, mx: 1.5}}>
+          <Button onClick={() => navigate("/login")} href="#" variant="outlined" color="secondary"
+                  sx={{my: 1, mx: 1.5}}>
             Login
           </Button>
         }

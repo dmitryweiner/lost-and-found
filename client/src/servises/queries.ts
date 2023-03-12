@@ -1,39 +1,21 @@
 import {QueryClient, useQuery, useMutation, QueryCache} from "@tanstack/react-query";
 import {API, ErrorResponse} from "./api";
-import {LoginData} from "../interfaces";
+import {FileType, LoginData, PhotoData} from "../interfaces";
 import toast from "react-hot-toast";
 import history from "../history";
 import axios from "axios";
 
 const STALE_TIME = 60 * 1000;
 const CURRENT_USER_QUERY = "currentUser";
+const ALL_PHOTOS_QUERY = "allPhotos";
+const ALL_TAGS_QUERY = "allTags";
 
-const queryCache  = new QueryCache({
-  onError: (error) => {
-    console.log({error});
-    let message = "";
-    let notAuthorizedError = false;
-    if (error instanceof Error) {
-      message = error.message;
-    }
-    if (axios.isAxiosError<ErrorResponse>(error)) {
-      message = error.response?.data?.error as string;
-      if (error?.response?.status === 401) {
-        notAuthorizedError = true;
-        history.replace("/login");
-      }
-    }
-    if (!notAuthorizedError) {
-      toast.error(message);
-    }
-  },
-});
 export const queryClient = new QueryClient({
-  queryCache,
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      retry: false
+      retry: false,
+      staleTime: STALE_TIME
     },
   },
 });
@@ -65,9 +47,23 @@ export const useLogoutMutation = () => useMutation(
 
 export const useCurrentUserQuery = () => useQuery(
   [CURRENT_USER_QUERY],
-  () => API.user.getCurrentUser(),
-  {
-    staleTime: STALE_TIME,
-    retry: false
-  }
+  () => API.user.getCurrentUser()
+);
+
+export const useFileUploadMutation = () => useMutation<FileType, unknown, FormData>(
+  (formData: FormData) => API.file.upload(formData)
+);
+
+export const useCreatePhotoMutation = () => useMutation(
+  (photoData: PhotoData) => API.photo.create(photoData)
+);
+
+export const useAllPhotosQuery = (query: string) => useQuery(
+  [ALL_PHOTOS_QUERY, query],
+  () => API.photo.getAll(query)
+);
+
+export const useAllTagsQuery = () => useQuery(
+  [ALL_TAGS_QUERY],
+  () => API.tag.getAll()
 );

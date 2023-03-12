@@ -1,8 +1,18 @@
 import axios from "axios";
-import {FileType, LoginData, Photo, PhotoData, RegistrationData, Tag, User} from "../interfaces";
+import history from "../history";
+import {
+  FileType,
+  LoginData,
+  Photo,
+  PhotoData,
+  RegistrationData,
+  Tag,
+  User
+} from "../interfaces";
+import toast from "react-hot-toast";
 
 export type ErrorResponse = {
-      error: string;
+  error: string;
 };
 
 export const BASE_URL = process.env.REACT_APP_API_URL;
@@ -17,7 +27,15 @@ const client = axios.create({
 
 client.interceptors.response.use(
   response => response.data,
-  error => Promise.reject(error)
+  async error => {
+    let message = error.response?.data?.error ?? error.message;
+    if (error.response.status === 401) {
+      history.replace("/login");
+    } else {
+      toast.error(message);
+    }
+    return Promise.reject(error);
+  }
 );
 
 
@@ -31,7 +49,14 @@ export const API = {
     getCurrentUser: () => client.get<never, User>("/user"),
   },
   file: {
-    upload: (formData: FormData) => client.post<never, FileType>("/file", formData)
+    upload: (formData: FormData) => client.post<never, FileType>("/file",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      }
+    )
   },
   photo: {
     create: ({tags, filename}: PhotoData) => client.post<never, Photo>("/photo", {

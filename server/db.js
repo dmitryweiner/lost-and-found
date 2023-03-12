@@ -10,7 +10,8 @@ const initDb = async () => {
     if (!db) {
         db = new Sequelize({
             dialect: 'sqlite',
-            storage: 'database.db'
+            storage: 'database.db',
+            logging: false
         });
         const models = [
             require('./models/user').User,
