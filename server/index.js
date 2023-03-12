@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const cookies = require("cookie-parser");
+const morgan = require('morgan');
 const {initDb} = require("./db");
 const userRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
@@ -11,10 +12,10 @@ const {PUBLIC_FILES_DIR} = require("./middleware/upload");
 
 const app = express();
 
-// чтобы парсился POST в виде JSON
+app.use(morgan('combined'));
+
 app.use(express.json());
 
-// чтобы парсились куки
 app.use(cookies());
 
 app.use(
