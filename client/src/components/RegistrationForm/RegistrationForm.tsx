@@ -27,7 +27,7 @@ export default function RegistrationForm({onSubmit}: FormProps) {
 
     setLoginError("");
 
-    if (!/^([a-z0-9]{6,20})$/.test(login)) {
+    if (!/^([a-z0-9]{4,20})$/.test(login)) {
       setLoginError("Login should be from 6 to 20 chars and consist of latin letters and numbers.");
       result = false;
     }
