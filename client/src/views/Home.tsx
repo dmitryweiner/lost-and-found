@@ -103,7 +103,7 @@ function Home() {
       {/* End hero unit */}
       <Grid container spacing={4}>
         {photos.map((photo) => (
-          <Grid item key={photo.id} xs={12} sm={6} md={4}>
+          <Grid item key={photo.id} xs={6} sm={4} md={4}>
             <Card
               sx={{height: '100%', display: 'flex', flexDirection: 'column'}}
             >

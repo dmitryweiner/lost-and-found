@@ -109,7 +109,7 @@ npm start
 * Home page.
   * [ ] Spinner for tags, empty block if no.
   * [ ] Spinner for images.
-  * [ ] Tile images for mobile.
+  * [x] Tile images for mobile.
 * Login/registration pages:
   * [x] View password.
   * [x] Add capital letters.
