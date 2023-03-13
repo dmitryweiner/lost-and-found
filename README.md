@@ -99,4 +99,21 @@ npm start
 * [x] Redirect to /login if not authorized.
 * [x] Material UI fancy design.
 * [ ] Test API with Supertest.
-* [ ] Deploy to render.com.
+* [x] Deploy to render.com.
+* Upload:
+  * [ ] Spinner.
+  * [ ] Resize images on server side.
+  * [ ] Clip should be clickable.
+  * [ ] Forbid selecting multiple images (mobile).
+  * [ ] Make photo and upload https://mabelanger.github.io/react-html5-camera-photo/
+* Home page.
+  * [ ] Spinner for tags, empty block if no.
+  * [ ] Spinner for images.
+  * [ ] Tile images for mobile.
+* Login/registration pages:
+  * [ ] View password.
+  * [ ] Add capital letters.
+* Photo:
+  * [ ] Edit or "View details" page.
+  * [ ] Delete button (with dialog).
+  * [ ] Show associated tags.
