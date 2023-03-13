@@ -111,8 +111,8 @@ npm start
   * [ ] Spinner for images.
   * [ ] Tile images for mobile.
 * Login/registration pages:
-  * [ ] View password.
-  * [ ] Add capital letters.
+  * [x] View password.
+  * [x] Add capital letters.
 * Photo:
   * [ ] Edit or "View details" page.
   * [ ] Delete button (with dialog).

@@ -1,7 +1,8 @@
-import { FormEvent, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import {Avatar, Box, Button, Grid, Link, TextField, Typography} from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {useNavigate} from "react-router-dom";
+import PasswordField from "../PasswordField";
 
 export type RegistrationFormData = {
   login: string;
@@ -27,8 +28,8 @@ export default function RegistrationForm({onSubmit}: FormProps) {
 
     setLoginError("");
 
-    if (!/^([a-z0-9]{4,20})$/.test(login)) {
-      setLoginError("Login should be from 6 to 20 chars and consist of latin letters and numbers.");
+    if (!/^([a-zA-Z0-9]{4,20})$/.test(login)) {
+      setLoginError("Login should be from 4 to 20 chars and consist of latin letters and numbers.");
       result = false;
     }
 
@@ -93,13 +94,12 @@ export default function RegistrationForm({onSubmit}: FormProps) {
           error={loginError.length > 0}
           helperText={loginError}
         />
-        <TextField
+        <PasswordField
           margin="normal"
           required
           fullWidth
           name="password"
           label="Password"
-          type="password"
           id="password"
           autoComplete="current-password"
           value={password}
@@ -107,7 +107,7 @@ export default function RegistrationForm({onSubmit}: FormProps) {
           error={passwordError.length > 0}
           helperText={passwordError}
         />
-        <TextField
+        <PasswordField
           margin="normal"
           required
           fullWidth
