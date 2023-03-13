@@ -101,11 +101,12 @@ npm start
 * [ ] Test API with Supertest.
 * [x] Deploy to render.com.
 * Upload:
-  * [ ] Spinner.
-  * [ ] Resize images on server side.
+  * [x] Spinner.
+  * [x] Resize images on server side.
   * [ ] Clip should be clickable.
   * [ ] Forbid selecting multiple images (mobile).
   * [ ] Make photo and upload https://mabelanger.github.io/react-html5-camera-photo/
+  * [ ] Show preview of file.
 * Home page.
   * [ ] Spinner for tags, empty block if no.
   * [ ] Spinner for images.

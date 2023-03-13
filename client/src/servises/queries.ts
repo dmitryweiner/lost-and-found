@@ -1,9 +1,8 @@
-import {QueryClient, useQuery, useMutation, QueryCache} from "@tanstack/react-query";
-import {API, ErrorResponse} from "./api";
+import {QueryClient, useQuery, useMutation} from "@tanstack/react-query";
+import {API} from "./api";
 import {FileType, LoginData, PhotoData} from "../interfaces";
 import toast from "react-hot-toast";
 import history from "../history";
-import axios from "axios";
 
 const STALE_TIME = 60 * 1000;
 const CURRENT_USER_QUERY = "currentUser";

@@ -1,11 +1,10 @@
 import React, {FormEvent, useState} from 'react';
-import {API} from "../servises/api";
 import {useNavigate} from "react-router-dom";
-import {Box, Button, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import {MuiFileInput} from "mui-file-input";
 import {MuiChipsInput} from "mui-chips-input";
+import LoadingButton from '@mui/lab/LoadingButton';
 import {useCreatePhotoMutation, useFileUploadMutation} from "../servises/queries";
-import {FileType} from "../interfaces";
 
 const PhotoUploadView = () => {
   const navigate = useNavigate();
@@ -13,10 +12,12 @@ const PhotoUploadView = () => {
   const fileUploadMutation = useFileUploadMutation();
   const [file, setFile] = useState<File | null>(null);
   const [tags, setTags] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const sendData = async () => {
     if (file) {
       try {
+        setLoading(true);
         const formData = new FormData()
         formData.append('photo', file);
         const data = await fileUploadMutation.mutateAsync(formData);
@@ -25,6 +26,8 @@ const PhotoUploadView = () => {
         navigate("/");
       } catch (e) {
         console.error(e);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -57,14 +60,16 @@ const PhotoUploadView = () => {
         onChange={file => setFile(file)}
         fullWidth margin="normal"
         inputProps={{accept: "image/*"}}/>
-      <Button
+      <LoadingButton
+        loading={loading}
+        disabled={loading}
         type="submit"
         fullWidth
         variant="contained"
         sx={{my: 2}}
       >
         Save
-      </Button>
+      </LoadingButton>
     </Box>
   </Box>;
 };
