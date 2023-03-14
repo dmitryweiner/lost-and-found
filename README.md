@@ -108,6 +108,7 @@ npm start
   * [ ] Forbid selecting multiple images (mobile).
   * [ ] Make photo and upload https://mabelanger.github.io/react-html5-camera-photo/
   * [ ] Show preview of file.
+  * [ ] Form validation.
   * [x] Enter tags with whitespace.
   * [x] Filter already existing tags.
 * Home page.
@@ -115,7 +116,7 @@ npm start
   * [ ] Spinner for images.
   * [x] Tile images for mobile.
   * [ ] Select multiple tags.
-  * [ ] Show "deselect" button on tag.
+  * [x] Show "deselect" button on tag.
 * Login/registration pages:
   * [x] View password.
   * [x] Add capital letters.

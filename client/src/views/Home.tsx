@@ -14,11 +14,9 @@ import {
   Typography
 } from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import { styled } from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
+import Tags from "../components/Tags";
 
-const ListItem = styled('li')(({ theme }) => ({
-  margin: theme.spacing(0.5),
-}));
 
 function Home() {
   const navigate = useNavigate();
@@ -74,29 +72,7 @@ function Home() {
         </Stack>
       </Container>
     </Box>
-    <Container sx={{
-      py: 1,
-    }}
-    >
-      <Paper
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          listStyle: 'none',
-          p: 0.5,
-          m: 0,
-        }}
-        component="ul"
-      >
-        {tags.map((tag) => <ListItem key={tag.id}>
-          <Chip
-            onClick={() => setQuery(tag.name)}
-            label={tag.name}
-          />
-        </ListItem>)}
-      </Paper>
-    </Container>
+    <Tags query={query} setQuery={setQuery} tags={tags}/>
     <Container sx={{
       py: 1,
     }}>

@@ -17,7 +17,7 @@ const PhotoUploadView = () => {
   const [tagsValue, setTagsValue] = useState("");
 
   const sendData = async () => {
-    if (file) {
+    if (file && tags.length > 0) {
       try {
         setLoading(true);
         const formData = new FormData()
