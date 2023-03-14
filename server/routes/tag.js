@@ -5,7 +5,7 @@ const tagRouter = express.Router();
 
 // get all tags
 tagRouter.get("/", auth, async (req, res) => {
-  const tags = await getDb().models.Tag.findAll({where: {userId: res.locals.userId}});
+  const tags = await getDb().models.Tag.findAll({where: {UserId: res.locals.userId}});
   res.json(tags);
 });
 

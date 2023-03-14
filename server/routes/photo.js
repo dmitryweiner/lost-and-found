@@ -53,11 +53,11 @@ photoRouter.get("/", auth, async (req, res) => {
 
   let photos = []
   if (!query) {
-    photos = await db.models.Photo.findAll({where: {userId: res.locals.userId}});
+    photos = await db.models.Photo.findAll({where: {UserId: res.locals.userId}});
   } else {
     const tag = await db.models.Tag.findOne({where: {name: query}});
     photos = await db.models.Photo.findAll({
-      where: {userId: res.locals.userId},
+      where: {UserId: res.locals.userId},
       include: [{
         model: db.models.Tag,
         where: {id: tag.id}

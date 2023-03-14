@@ -29,7 +29,7 @@ client.interceptors.response.use(
   response => response.data,
   async error => {
     let message = error.response?.data?.error ?? error.message;
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       history.replace("/login");
     } else {
       toast.error(message);

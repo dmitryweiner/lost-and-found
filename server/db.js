@@ -1,5 +1,4 @@
-const sqlite3 = require('sqlite3');
-const {open} = require('sqlite');
+require('dotenv').config();
 const connections = require('./models/connections');
 const {Sequelize} = require("sequelize");
 
@@ -8,9 +7,7 @@ let db;
 const initDb = async () => {
     // open the database
     if (!db) {
-        db = new Sequelize({
-            dialect: 'sqlite',
-            storage: 'database.db',
+        db = new Sequelize(process.env.DATABASE_URL, {
             logging: false
         });
         const models = [
