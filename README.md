@@ -109,7 +109,7 @@ npm start
   * [ ] Make photo and upload https://mabelanger.github.io/react-html5-camera-photo/
   * [ ] Show preview of file.
   * [x] Enter tags with whitespace.
-  * [ ] Filter already existing tags.
+  * [x] Filter already existing tags.
 * Home page.
   * [ ] Spinner for tags, empty block if no.
   * [ ] Spinner for images.

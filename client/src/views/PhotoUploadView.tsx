@@ -5,6 +5,7 @@ import {MuiFileInput} from "mui-file-input";
 import {MuiChipsInput} from "mui-chips-input";
 import LoadingButton from '@mui/lab/LoadingButton';
 import {useCreatePhotoMutation, useFileUploadMutation} from "../servises/queries";
+import {distinct} from "../servises/utils";
 
 const PhotoUploadView = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const PhotoUploadView = () => {
 
   const handleTagsInputChange = (v: string) => {
     if (v[v.length - 1] === " ") {
-      setTags([...tags, v.trim()]);
+      setTags(distinct<string>([...tags, v.trim()]));
       setTagsValue("");
     } else {
       setTagsValue(v);
@@ -61,7 +62,7 @@ const PhotoUploadView = () => {
     <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
       <MuiChipsInput
         value={tags}
-        onChange={tags => setTags(tags)}
+        onChange={tags => setTags(distinct<string>(tags))}
         fullWidth
         onInputChange={handleTagsInputChange}
         placeholder="Describe the photo by entering tags"
