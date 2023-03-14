@@ -1,6 +1,6 @@
 import {QueryClient, useQuery, useMutation} from "@tanstack/react-query";
 import {API} from "./api";
-import {FileType, LoginData, PhotoData} from "../interfaces";
+import {FileType, LoginData, PhotoData, RegistrationData} from "../interfaces";
 import toast from "react-hot-toast";
 import history from "../history";
 
@@ -26,6 +26,18 @@ export const useLoginMutation = ()  => useMutation(
       toast.success("User successfully logged in.");
       setTimeout(() => {
         history.replace("/");
+      }, 1000);
+    },
+  }
+);
+
+export const useRegisterMutation = ()  => useMutation(
+  (data: RegistrationData) => API.user.register(data),
+  {
+    onSuccess: () => {
+      toast.success("User successfully created.");
+      setTimeout(() => {
+        history.replace("/login");
       }, 1000);
     },
   }

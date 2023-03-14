@@ -13,6 +13,7 @@ const PhotoUploadView = () => {
   const [file, setFile] = useState<File | null>(null);
   const [tags, setTags] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const [tagsValue, setTagsValue] = useState("");
 
   const sendData = async () => {
     if (file) {
@@ -29,6 +30,15 @@ const PhotoUploadView = () => {
       } finally {
         setLoading(false);
       }
+    }
+  };
+
+  const handleTagsInputChange = (v: string) => {
+    if (v[v.length - 1] === " ") {
+      setTags([...tags, v.trim()]);
+      setTagsValue("");
+    } else {
+      setTagsValue(v);
     }
   };
 
@@ -53,7 +63,11 @@ const PhotoUploadView = () => {
         value={tags}
         onChange={tags => setTags(tags)}
         fullWidth
+        onInputChange={handleTagsInputChange}
         placeholder="Describe the photo by entering tags"
+        InputProps={{
+          value: tagsValue
+        }}
         margin="normal"/>
       <MuiFileInput
         value={file}
