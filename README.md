@@ -100,20 +100,26 @@ npm start
 * [x] Material UI fancy design.
 * [ ] Test API with Supertest.
 * [x] Deploy to render.com.
+* [x] Move to PostgresSQL.
 * Upload:
   * [x] Spinner.
   * [x] Resize images on server side.
-  * [ ] Clip should be clickable.
+  * [ ] Clip sign should be clickable.
   * [ ] Forbid selecting multiple images (mobile).
   * [ ] Make photo and upload https://mabelanger.github.io/react-html5-camera-photo/
   * [ ] Show preview of file.
+  * [x] Enter tags with whitespace.
+  * [ ] Filter already existing tags.
 * Home page.
   * [ ] Spinner for tags, empty block if no.
   * [ ] Spinner for images.
   * [x] Tile images for mobile.
+  * [ ] Select multiple tags.
+  * [ ] Show "deselect" button on tag.
 * Login/registration pages:
   * [x] View password.
   * [x] Add capital letters.
+  * [ ] Fix blinking on login.
 * Photo:
   * [ ] Edit or "View details" page.
   * [ ] Delete button (with dialog).
