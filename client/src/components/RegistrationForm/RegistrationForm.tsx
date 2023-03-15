@@ -113,7 +113,6 @@ export default function RegistrationForm({onSubmit}: FormProps) {
           fullWidth
           name="repeatPassword"
           label="Repeat password"
-          type="password"
           id="repeatPassword"
           value={passwordRepeat}
           onChange={e => setPasswordRepeat(e.target.value)}
