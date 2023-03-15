@@ -108,19 +108,19 @@ npm start
 * Upload:
   * [x] Spinner.
   * [x] Resize images on server side.
+  * [x] Enter tags with whitespace.
+  * [x] Filter already existing tags.
   * [ ] Clip sign should be clickable.
   * [ ] Forbid selecting multiple images (mobile).
   * [ ] Make photo and upload https://mabelanger.github.io/react-html5-camera-photo/
   * [ ] Show preview of file.
   * [ ] Form validation.
-  * [x] Enter tags with whitespace.
-  * [x] Filter already existing tags.
 * Home page.
-  * [ ] Spinner for tags, empty block if no.
-  * [ ] Spinner for images.
+  * [x] Spinner for tags, empty block if no.
+  * [x] Spinner for images.
   * [x] Tile images for mobile.
-  * [ ] Select multiple tags.
   * [x] Show "deselect" button on tag.
+  * [ ] Select multiple tags.
   * Photo block:
     * [ ] Edit or "View details" page.
     * [ ] Delete button (with dialog).
