@@ -64,7 +64,13 @@ export const useFileUploadMutation = () => useMutation<FileType, unknown, FormDa
 );
 
 export const useCreatePhotoMutation = () => useMutation(
-  (photoData: PhotoData) => API.photo.create(photoData)
+  (photoData: PhotoData) => API.photo.create(photoData),
+  {
+    onSuccess: () => {
+      queryClient.invalidateQueries([ALL_PHOTOS_QUERY]);
+      queryClient.invalidateQueries([ALL_TAGS_QUERY]);
+    }
+  }
 );
 
 export const useAllPhotosQuery = (query: string) => useQuery(
