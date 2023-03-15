@@ -1,6 +1,7 @@
+require('dotenv').config();
 const multer = require("multer");
 const uuid = require("uuid");
-const PUBLIC_FILES_DIR = './public/';
+const PUBLIC_FILES_DIR = process.env.PHOTOS_PATH;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
