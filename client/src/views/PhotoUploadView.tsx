@@ -17,14 +17,18 @@ const PhotoUploadView = () => {
   const [tagsValue, setTagsValue] = useState("");
 
   const sendData = async () => {
-    if (file && tags.length > 0) {
+    let actualTags = [...tags];
+    if (tagsValue.length > 0) {
+      actualTags = distinct([...tags, tagsValue.trim()]);
+    }
+    if (file && actualTags.length > 0) {
       try {
         setLoading(true);
         const formData = new FormData()
         formData.append('photo', file);
         const data = await fileUploadMutation.mutateAsync(formData);
         const filename = data.filename;
-        await createPhotoMutation.mutateAsync({tags, filename});
+        await createPhotoMutation.mutateAsync({tags: actualTags, filename});
         navigate("/");
       } catch (e) {
         console.error(e);

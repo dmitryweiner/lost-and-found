@@ -12,7 +12,9 @@ const {PUBLIC_FILES_DIR} = require("./middleware/upload");
 
 const app = express();
 
-app.use(morgan('combined'));
+app.use(morgan('combined', {
+    skip: function (req, res) { return res.statusCode < 400 }
+}));
 
 app.use(express.json());
 
