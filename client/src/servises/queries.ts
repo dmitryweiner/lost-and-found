@@ -22,11 +22,9 @@ export const useLoginMutation = ()  => useMutation(
   (data: LoginData) => API.auth.login(data),
   {
     onSuccess: () => {
-      queryClient.invalidateQueries([CURRENT_USER_QUERY]);
+      history.replace("/");
       toast.success("User successfully logged in.");
-      setTimeout(() => {
-        history.replace("/");
-      }, 1000);
+      queryClient.invalidateQueries([CURRENT_USER_QUERY]);
     },
   }
 );

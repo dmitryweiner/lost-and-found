@@ -98,9 +98,13 @@ npm start
   * [ ] React query for API call status.
 * [x] Redirect to /login if not authorized.
 * [x] Material UI fancy design.
-* [ ] Test API with Supertest.
-* [x] Deploy to render.com.
-* [x] Move to PostgresSQL.
+* Architecture:
+  * [x] Move to PostgresSQL.
+  * [ ] Use ReduxToolkit + RTKQuery.
+* Tooling:
+  * [x] Deploy to render.com.
+  * [ ] ESLint + Prettier.
+  * [ ] Test API with Supertest.
 * Upload:
   * [x] Spinner.
   * [x] Resize images on server side.

@@ -10,7 +10,6 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 const PasswordField = ({InputProps, ...textFieldProps}: TextFieldProps) => {
   const [visible, setVisible] = useState(false);
 
-  console.log(visible);
   return <TextField
     type={visible ? 'text' : 'password'}
     InputProps={{

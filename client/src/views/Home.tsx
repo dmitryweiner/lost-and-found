@@ -6,15 +6,12 @@ import {
   Button, Card,
   CardActions,
   CardMedia,
-  Chip,
   Container,
   Grid,
-  Paper,
   Stack,
   Typography
 } from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {styled} from '@mui/material/styles';
 import Tags from "../components/Tags";
 
 
