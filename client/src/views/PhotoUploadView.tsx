@@ -65,7 +65,7 @@ const PhotoUploadView = () => {
         onChange={tags => setTags(distinct<string>(tags))}
         fullWidth
         onInputChange={handleTagsInputChange}
-        placeholder="Describe the photo by entering tags"
+        placeholder="Enter tags and press space or enter between"
         InputProps={{
           value: tagsValue
         }}

@@ -121,11 +121,12 @@ npm start
   * [x] Tile images for mobile.
   * [ ] Select multiple tags.
   * [x] Show "deselect" button on tag.
+  * Photo block:
+    * [ ] Edit or "View details" page.
+    * [ ] Delete button (with dialog).
+    * [ ] Show associated tags.
 * Login/registration pages:
   * [x] View password.
   * [x] Add capital letters.
-  * [ ] Fix blinking on login.
-* Photo:
-  * [ ] Edit or "View details" page.
-  * [ ] Delete button (with dialog).
-  * [ ] Show associated tags.
+  * [x] Fix blinking on login.
+

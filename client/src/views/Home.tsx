@@ -1,54 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import {API, BASE_URL} from "../servises/api";
-import {Photo, Tag} from "../interfaces";
+import React, {useState} from 'react';
 import {
   Box,
-  Button, Card,
-  CardActions,
-  CardMedia,
+  Button,
   Container,
-  Grid,
   Stack,
   Typography
 } from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {useAllPhotosQuery, useAllTagsQuery} from "../servises/queries";
 import Tags from "../components/Tags";
+import Photos from "../components/Photos";
 
 
 function Home() {
   const navigate = useNavigate();
-  const [tags, setTags] = useState<Tag[]>([]);
-  const [photos, setPhotos] = useState<Photo[]>([]);
   const [query, setQuery] = useState("");
-
-  const getPhotos = async () => {
-    try {
-      const photos = await API.photo.getAll(query);
-      setPhotos(photos);
-    } catch (e) {
-      console.error(photos);
-    }
-  }
-
-  const getTags = async () => {
-    try {
-      const tags = await API.tag.getAll();
-      setTags(tags);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  useEffect(() => {
-    getPhotos();
-    getTags();
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    getPhotos();
-    // eslint-disable-next-line
-  }, [query]);
+  const allPhotosQuery = useAllPhotosQuery(query);
+  const allTagsQuery = useAllTagsQuery();
 
   return <>
     <Box
@@ -69,30 +37,14 @@ function Home() {
         </Stack>
       </Container>
     </Box>
-    <Tags query={query} setQuery={setQuery} tags={tags}/>
-    <Container sx={{
-      py: 1,
-    }}>
-      {/* End hero unit */}
-      <Grid container spacing={4}>
-        {photos.map((photo) => (
-          <Grid item key={photo.id} xs={6} sm={4} md={4}>
-            <Card
-              sx={{height: '100%', display: 'flex', flexDirection: 'column'}}
-            >
-              <CardMedia
-                component="img"
-                image={`${BASE_URL}/public/${photo.filename}`}
-              />
-              <CardActions>
-                <Button size="small">View</Button>
-                <Button size="small">Delete</Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+    <Tags
+      isLoading={allTagsQuery.isFetching}
+      query={query}
+      setQuery={setQuery}
+      tags={allTagsQuery.data}/>
+    <Photos
+      isLoading={allPhotosQuery.isFetching}
+      photos={allPhotosQuery.data}/>
   </>;
 }
 
