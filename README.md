@@ -100,6 +100,7 @@ npm start
 * [x] Material UI fancy design.
 * Architecture:
   * [x] Move to PostgresSQL.
+  * [ ] [Use bcrypt for password hash](https://stackoverflow.com/questions/34120548/using-bcrypt-with-sequelize-model).
   * [ ] Use ReduxToolkit + RTKQuery.
 * Tooling:
   * [x] Deploy to render.com.
