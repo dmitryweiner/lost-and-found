@@ -1,11 +1,13 @@
 # Lost and Found
 > Application for fast search of needful things
 
+### [Live web-application](https://lost-and-found-6l4m.onrender.com/) (powered by render.com) 
+
 ## Technologies
 * Server:
   * Node.js
   * Express.js
-  * SQLite
+  * PostgresSQL
   * Sequelize
 * Client:
   * Axios 
