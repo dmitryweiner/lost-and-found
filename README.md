@@ -86,46 +86,46 @@ npm start
 ```
 
 ## Todo
-* [x] Upload photo form + server route.
-* Main page: 
-  * [x] get all photos
-  * [x] list of tags
-  * [x] search by tag
-  * [ ] Home page with pagination or infinite loading
-* Networking:
-  * [x] Axios (get rid of credentials: include).
-  * [x] [Centralized error handling with popup](https://tkdodo.eu/blog/react-query-error-handling).
-  * [ ] React query for API call status.
-* [x] Redirect to /login if not authorized.
-* [x] Material UI fancy design.
 * Architecture:
+  * [x] Redirect to /login if not authorized.
+  * [x] Material UI fancy design.
   * [x] Move to PostgresSQL.
   * [ ] [Use bcrypt for password hash](https://stackoverflow.com/questions/34120548/using-bcrypt-with-sequelize-model).
   * [ ] Use ReduxToolkit + RTKQuery.
+  * Networking:
+    * [x] Axios (get rid of credentials: include).
+    * [x] [Centralized error handling with popup](https://tkdodo.eu/blog/react-query-error-handling).
+    * [x] React query for API call status.
 * Tooling:
   * [x] Deploy to render.com.
   * [ ] ESLint + Prettier.
   * [ ] Test API with Supertest.
 * Upload:
+  * [x] Upload photo form + server route.
   * [x] Spinner.
   * [x] Resize images on server side.
   * [x] Enter tags with whitespace.
   * [x] Filter already existing tags.
-  * [ ] Clip sign should be clickable.
-  * [ ] Forbid selecting multiple images (mobile).
-  * [ ] Make photo and upload https://mabelanger.github.io/react-html5-camera-photo/
-  * [ ] Show preview of file.
+  * [x] Forbid selecting multiple images (mobile).
   * [ ] Form validation.
+  * [ ] Show preview of file.
+  * [ ] Clip sign should be clickable.
+  * [ ] Make photo and upload https://mabelanger.github.io/react-html5-camera-photo/
 * Home page.
+  * [x] get all photos
+  * [x] list of tags
+  * [x] search by tag
   * [x] Spinner for tags, empty block if no.
   * [x] Spinner for images.
   * [x] Tile images for mobile.
   * [x] Show "deselect" button on tag.
   * [ ] Select multiple tags.
+  * [ ] Pagination or infinite loading.
   * Photo block:
-    * [ ] Edit or "View details" page.
-    * [ ] Delete button (with dialog).
-    * [ ] Show associated tags.
+   * [ ] Show associated tags.
+   * [ ] Buttons should fit mobile screens (use icons?).
+   * [ ] Edit or "View details" page.
+   * [ ] Delete button (with dialog).
 * Login/registration pages:
   * [x] View password.
   * [x] Add capital letters.
