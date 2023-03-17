@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {
   Box,
@@ -14,8 +14,8 @@ import {
 } from "@mui/material";
 import {BASE_URL} from "../servises/api";
 import {styled} from "@mui/material/styles";
-import {usePhotoQuery} from "../servises/queries";
-import toast from "react-hot-toast";
+import {useDeletePhotoMutation, usePhotoQuery} from "../servises/queries";
+import PhotoDeleteDialog from "../components/PhotoDeleteDialog";
 
 const ListItem = styled('li')(({theme}) => ({
   marginLeft: theme.spacing(0.1),
@@ -25,6 +25,16 @@ const PhotoView = () => {
   const navigate = useNavigate();
   const {id} = useParams();
   const {data: photo, isFetching: isLoading} = usePhotoQuery(parseInt(id!!));
+  const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
+  const deletePhotoMutation = useDeletePhotoMutation();
+
+  const handleDelete = () => {
+    (async () => {
+      await deletePhotoMutation.mutateAsync(parseInt(id!!));
+      navigate("/");
+    })();
+  };
+
   return <Box
     sx={{
       marginTop: 2,
@@ -53,7 +63,7 @@ const PhotoView = () => {
               />
               <CardContent>
                 {photo?.Tags && photo?.Tags?.length > 0 && <>
-                  <Typography variant="body1">
+                  <Typography variant="body2" color="text.secondary">
                     Tags:
                   </Typography>
                   <Box
@@ -70,17 +80,17 @@ const PhotoView = () => {
                   >
                     {photo?.Tags?.map((tag) => <ListItem key={tag.id}>
                       <Chip
-                        size="small"
+                        size="medium"
                         label={tag.name}
                       />
                     </ListItem>)}
                   </Box>
                 </>}
                 <Box marginTop={1}>
-                  <Typography variant="body1">
+                  <Typography variant="body2" color="text.secondary">
                     Created:
                   </Typography>
-                  <Typography variant="body2">
+                  <Typography variant="body1">
                     {new Date(photo?.createdAt ?? "").toLocaleString()}
                   </Typography>
                 </Box>
@@ -91,13 +101,18 @@ const PhotoView = () => {
                   justifyContent="center"
                 >
                   <Button size="large" onClick={() => navigate("/")}>Back</Button>
-                  <Button size="large" color="warning" onClick={() => toast.error("Not implemented yet!")}>Delete</Button>
+                  <Button size="large" color="warning" onClick={() => setDeleteDialogVisible(true)}>Delete</Button>
                 </Box>
               </CardActions>
             </Card>
           </Grid>}
       </Grid>
     </Box>
+    <PhotoDeleteDialog
+      open={deleteDialogVisible}
+      handleClose={() => setDeleteDialogVisible(false)}
+      handleDelete={handleDelete}
+    />
   </Box>;
 }
 

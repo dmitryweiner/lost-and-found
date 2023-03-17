@@ -1,9 +1,11 @@
+const fs = require('fs');
 const express = require('express');
 const {getDb} = require("../db");
 const {auth} = require("../middleware/auth");
 const {NotFoundError, NotImplementedError, BadRequestError} = require("../errors");
 const md5 = require("md5");
 const {Op} = require("sequelize");
+const {PUBLIC_FILES_DIR} = require("../middleware/upload");
 const photoRouter = express.Router();
 
 photoRouter.post("/", auth, async (req, res, next) => {
@@ -18,13 +20,18 @@ photoRouter.post("/", auth, async (req, res, next) => {
 
     const tagModels = [];
     for (let tag of tags) {
-      let tagModel = await getDb().models.Tag.findOne({where: {name: tag}});
+      let tagModel = await getDb().models.Tag.findOne({
+        where: {
+          name: tag,
+          UserId: user.id
+        }
+      });
       if (!tagModel) {
         tagModel = await getDb().models.Tag.create({
           name: tag
         });
+        await tagModel.setUser(user);
       }
-      await tagModel.setUser(user);
       tagModels.push(tagModel);
     }
 
@@ -53,7 +60,7 @@ photoRouter.get("/", auth, async (req, res) => {
   // @see https://blog.bitsrc.io/pagination-with-sequelize-explained-83054df6e041
   const query = req.query?.query ?? "";
 
-  let photos = []
+  let photos = [];
   if (!query) {
     photos = await db.models.Photo.findAll({
       where: {UserId: res.locals.userId},
@@ -88,25 +95,40 @@ photoRouter.get("/", auth, async (req, res) => {
   res.json(photos);
 });
 
-photoRouter.get("/:id", auth, async (req, res) => {
+photoRouter.get("/:id", auth, async (req, res, next) => {
   const db = await getDb();
-  const photo = await db.models.Photo.findByPk(req.params.id, {
-    include: [{
-      model: db.models.Tag
-    }]
-  });
-  if (!photo) {
-    throw new NotFoundError("Photo not found");
+  try {
+    const photo = await db.models.Photo.findByPk(req.params.id, {
+      include: [{
+        model: db.models.Tag
+      }]
+    });
+    if (!photo) {
+      throw new NotFoundError("Photo not found");
+    }
+    res.json(photo);
+  } catch (err) {
+    next(err);
   }
-  res.json(photo);
 });
 
 photoRouter.put("/:id", auth, (req, res) => {
   throw new NotImplementedError();
 });
 
-photoRouter.delete("/:id", auth, (req, res) => {
-  throw new NotImplementedError();
+photoRouter.delete("/:id", auth, async (req, res, next) => {
+  const db = await getDb();
+  try {
+    const photo = await db.models.Photo.findByPk(req.params.id);
+    if (!photo) {
+      throw new NotFoundError("Photo not found");
+    }
+    fs.unlinkSync(`${PUBLIC_FILES_DIR}/${photo.filename}`);
+    await photo.destroy();
+    res.status(200).end();
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = photoRouter;

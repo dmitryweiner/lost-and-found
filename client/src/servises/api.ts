@@ -65,6 +65,7 @@ export const API = {
     }),
     getAll: (query: string) => client.get<never, Photo[]>(`/photo/?query=${query}`),
     getById: (id: number) => client.get<never, Photo>(`/photo/${id}`),
+    deleteById: (id: number) => client.delete<never, void>(`/photo/${id}`),
   },
   tag: {
     getAll: () => client.get<never, Tag[]>("/tag"),

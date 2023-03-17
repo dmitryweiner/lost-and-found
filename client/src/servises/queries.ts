@@ -74,6 +74,16 @@ export const useCreatePhotoMutation = () => useMutation(
   }
 );
 
+export const useDeletePhotoMutation = () => useMutation(
+  (id: number) => API.photo.deleteById(id),
+  {
+    onSuccess: () => Promise.all([
+      queryClient.invalidateQueries({queryKey: [ALL_PHOTOS_QUERY]}),
+      queryClient.invalidateQueries({queryKey:[ALL_TAGS_QUERY]})
+    ])
+  }
+);
+
 export const useAllPhotosQuery = (query: string) => useQuery(
   [ALL_PHOTOS_QUERY, query],
   () => API.photo.getAll(query)
