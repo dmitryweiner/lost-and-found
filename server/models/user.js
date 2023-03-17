@@ -25,7 +25,9 @@ module.exports = {
     addUser: async (login, password) => {
         return await getDb().models.User.create({
             login,
-            password: md5(password) // TODO: use bcrypt
+            // TODO: use bcrypt
+            // @see https://stackoverflow.com/questions/34120548/using-bcrypt-with-sequelize-model
+            password: md5(password)
         });
     },
     getUsers: async () => await getDb().models.User.findAll(),

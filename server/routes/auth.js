@@ -20,6 +20,8 @@ authRouter.post("/", async (req, res, next) => {
             throw new BadRequestError("Wrong password.");
         }
 
+        // TODO: JWT token
+        // @see https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
         const token = await addToken(user.id);
         res.cookie(COOKIE_NAME, token, {
             maxAge: 24 * 60 * 60 * 1000, // TODO: to const

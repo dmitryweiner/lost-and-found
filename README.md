@@ -109,7 +109,7 @@ npm start
   * [x] Redirect to /login if not authorized.
   * [x] Material UI fancy design.
   * [x] Move to PostgresSQL.
-  * [ ] Change favicon.
+  * [x] Change favicon.
   * [ ] Change color scheme https://bareynol.github.io/mui-theme-creator/
   * [ ] [Use bcrypt for password hash](https://stackoverflow.com/questions/34120548/using-bcrypt-with-sequelize-model).
   * [ ] Use JWT token https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
@@ -144,10 +144,10 @@ npm start
   * [ ] Select multiple tags.
   * [ ] Pagination or infinite loading.
   * Photo block:
-   * [ ] Show associated tags.
-   * [ ] Buttons should fit mobile screens (use icons?).
-   * [ ] Edit or "View details" page.
-   * [ ] Delete button (with dialog).
+   * [x] Show associated tags.
+   * [x] Edit or "View details" page.
+* View details page:
+  * [ ] Delete button (with dialog).
 * Login/registration pages:
   * [x] View password.
   * [x] Add capital letters.

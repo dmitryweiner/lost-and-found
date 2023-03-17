@@ -3,6 +3,7 @@ const {getDb} = require("../db");
 const {auth} = require("../middleware/auth");
 const {NotFoundError, NotImplementedError, BadRequestError} = require("../errors");
 const md5 = require("md5");
+const {Op} = require("sequelize");
 const photoRouter = express.Router();
 
 photoRouter.post("/", auth, async (req, res, next) => {
@@ -48,6 +49,7 @@ photoRouter.post("/", auth, async (req, res, next) => {
 
 photoRouter.get("/", auth, async (req, res) => {
   const db = await getDb();
+  // TODO: pagination
   // @see https://blog.bitsrc.io/pagination-with-sequelize-explained-83054df6e041
   const query = req.query?.query ?? "";
 
@@ -60,14 +62,28 @@ photoRouter.get("/", auth, async (req, res) => {
       }]
     });
   } else {
-    const tag = await db.models.Tag.findOne({where: {name: query}});
+    const tag = await db.models.Tag.findOne({
+      where: {name: query}
+    });
     photos = await db.models.Photo.findAll({
-      where: {UserId: res.locals.userId},
+      where: {
+        UserId: res.locals.userId
+      },
       include: [{
         model: db.models.Tag,
         where: {id: tag.id}
       }]
     });
+  }
+
+  for (const photo of photos) {
+    const photoTags = await db.models.Tag.findAll({
+      include: [{
+        model: db.models.Photo,
+        where: {id: photo.id},
+      }]
+    });
+    photo.set("Tags", [...photoTags]);
   }
   res.json(photos);
 });
