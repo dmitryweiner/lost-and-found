@@ -1,22 +1,30 @@
 import React from 'react';
 import {Photo} from "../interfaces";
+import {styled} from "@mui/material/styles";
 import {
-  Button,
+  Box,
   Card,
   CardActions,
   CardMedia,
+  Chip,
   CircularProgress,
   Container,
   Grid
 } from "@mui/material";
 import {BASE_URL} from "../servises/api";
 
+const ListItem = styled('li')(({theme}) => ({
+  margin: theme.spacing(0),
+}));
+
 type PhotosProps = {
   isLoading: boolean;
   photos?: Photo[];
+  query: string;
+  setQuery: (query: string) => void;
 }
 
-function Photos({photos, isLoading}: PhotosProps) {
+function Photos({photos, isLoading, query, setQuery}: PhotosProps) {
   return <Container sx={{
     py: 1,
   }}>
@@ -37,8 +45,26 @@ function Photos({photos, isLoading}: PhotosProps) {
                   image={`${BASE_URL}/public/${photo.filename}`}
                 />
                 <CardActions>
-                  <Button size="small">View</Button>
-                  <Button size="small">Delete</Button>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      flexWrap: 'wrap',
+                      listStyle: 'none',
+                      p: 0,
+                      m: 0,
+                    }}
+                    component="ul"
+                  >
+                    {photo.Tags?.map((tag) => <ListItem key={tag.id}>
+                      <Chip
+                        size="small"
+                        label={tag.name}
+                        onClick={() => setQuery(tag.name)}
+                        color={query === tag.name ? "primary" : "default"}
+                      />
+                    </ListItem>)}
+                  </Box>
                 </CardActions>
               </Card>
             </Grid>

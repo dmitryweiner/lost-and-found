@@ -43,6 +43,8 @@ function Home() {
       setQuery={setQuery}
       tags={allTagsQuery.data}/>
     <Photos
+      query={query}
+      setQuery={setQuery}
       isLoading={allPhotosQuery.isFetching}
       photos={allPhotosQuery.data}/>
   </>;

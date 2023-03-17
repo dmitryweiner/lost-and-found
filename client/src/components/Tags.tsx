@@ -1,5 +1,10 @@
 import React from 'react';
-import {Chip, CircularProgress, Container, Paper} from "@mui/material";
+import {
+  Chip,
+  CircularProgress,
+  Container,
+  Paper
+} from "@mui/material";
 import {Tag} from "../interfaces";
 import {styled} from "@mui/material/styles";
 
