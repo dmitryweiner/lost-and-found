@@ -1,25 +1,42 @@
 # Lost and Found
 > Application for fast search of needful things
 
-### [Live web-application](https://lost-and-found-6l4m.onrender.com/) (powered by render.com) 
+### [Live web-application](https://lost-and-found-6l4m.onrender.com/) (powered by [render.com](https://render.com/)) 
 
 ## Technologies
 * Server:
-  * Node.js
-  * Express.js
-  * PostgresSQL
-  * Sequelize
+  * [Node.js](https://nodejs.org/en)
+  * [Express.js](https://expressjs.com/)
+  * [PostgresSQL](https://www.postgresql.org/)
+  * [Sequelize](https://sequelize.org/)
 * Client:
-  * Axios 
-  * React Query
-  * React.js
-  * MaterialUI
+  * [React.js](https://react.dev/)
+  * [React Query](https://react-query-v3.tanstack.com/)
+  * [Axios](https://axios-http.com/docs/intro)
+  * [MaterialUI](https://mui.com/)
 
 ## Use cases
 ### Registration
+* Anonymous user can enter username and password.
+* User should repeat password.
+* User can sing up.
 ### Login
-### Upload photo
-### Search photo
+* User can enter username and password.
+* User should be able to sign in.
+### Main page
+* This page should be accessible only to logged user. 
+If user not logged in, she should be redirected to login page.
+* User can view all her tags.
+  * Tags are selectable.
+  * If clicked, photos should be filtered by the selected tag. 
+* User can view all her photos.
+  * Photos should show associated tags.
+* User can go to upload page.
+### Upload page
+* This is protected page.
+* User can select photo from local disk.
+* User can add associated tags.
+* User can upload photo.
 
 ## Server API
 ### /user
@@ -92,6 +109,8 @@ npm start
   * [x] Redirect to /login if not authorized.
   * [x] Material UI fancy design.
   * [x] Move to PostgresSQL.
+  * [ ] Change favicon.
+  * [ ] Change color scheme https://bareynol.github.io/mui-theme-creator/
   * [ ] [Use bcrypt for password hash](https://stackoverflow.com/questions/34120548/using-bcrypt-with-sequelize-model).
   * [ ] Use ReduxToolkit + RTKQuery.
   * Networking:
