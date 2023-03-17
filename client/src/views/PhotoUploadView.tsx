@@ -78,7 +78,7 @@ const PhotoUploadView = () => {
         value={file}
         onChange={file => setFile(file)}
         fullWidth margin="normal"
-        inputProps={{accept: "image/*"}}/>
+        inputProps={{accept: "image/*", capture: true}}/>
       <LoadingButton
         loading={loading}
         disabled={loading}

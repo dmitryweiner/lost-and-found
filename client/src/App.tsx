@@ -2,7 +2,8 @@ import React from 'react';
 import {
   Navigate,
   Route,
-  Routes, useNavigate
+  Routes,
+  useNavigate
 } from 'react-router-dom';
 import './App.css';
 import Home from "./views/Home";
@@ -71,7 +72,7 @@ function App() {
         {user ?
           <>
             <PersonIcon/>
-            <Typography variant="body1" color="inherit" sx={{ fontWeight: 'bold' }}>
+            <Typography variant="body1" color="inherit" sx={{fontWeight: 'bold'}}>
               {user.login}
             </Typography>
             <Button onClick={handleLogout} href="#" variant="outlined" color="secondary" sx={{my: 1, mx: 1.5}}>
