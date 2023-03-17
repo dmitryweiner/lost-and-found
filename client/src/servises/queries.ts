@@ -46,7 +46,7 @@ export const useLogoutMutation = () => useMutation(
   () => API.auth.logout(),
   {
     onSuccess: () => {
-      queryClient.invalidateQueries([CURRENT_USER_QUERY]);
+      queryClient.clear();
       toast.success("User successfully logged out.");
       setTimeout(() => {
         history.replace("/login");
