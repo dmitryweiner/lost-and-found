@@ -112,6 +112,7 @@ npm start
   * [ ] Change favicon.
   * [ ] Change color scheme https://bareynol.github.io/mui-theme-creator/
   * [ ] [Use bcrypt for password hash](https://stackoverflow.com/questions/34120548/using-bcrypt-with-sequelize-model).
+  * [ ] Use JWT token https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
   * [ ] Use ReduxToolkit + RTKQuery.
   * Networking:
     * [x] Axios (get rid of credentials: include).
