@@ -73,7 +73,12 @@ photoRouter.get("/", auth, async (req, res) => {
 });
 
 photoRouter.get("/:id", auth, async (req, res) => {
-  const photo = await getDb().models.Photo.findByPk(req.params.id);
+  const db = await getDb();
+  const photo = await db.models.Photo.findByPk(req.params.id, {
+    include: [{
+      model: db.models.Tag
+    }]
+  });
   if (!photo) {
     throw new NotFoundError("Photo not found");
   }

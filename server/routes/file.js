@@ -11,6 +11,7 @@ const MAX_IMAGE_SIZE = 1024;
 fileRouter.post("/", [auth, upload.single('photo')], async (req, res) => {
   const {filename: image, destination} = req.file;
   await sharp(req.file.path)
+    .rotate()
     .resize(MAX_IMAGE_SIZE)
     .jpeg({quality: 90})
     .toFile(

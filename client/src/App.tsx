@@ -15,6 +15,7 @@ import CameraIcon from '@mui/icons-material/PhotoCamera';
 import {useCurrentUserQuery, useLogoutMutation} from "./servises/queries";
 import {User} from "./interfaces";
 import PersonIcon from '@mui/icons-material/Person';
+import PhotoView from "./views/PhotoView";
 
 type ProtectedRouteType = {
   user?: User,
@@ -56,8 +57,15 @@ function App() {
   return <>
     <AppBar position="static">
       <Toolbar>
-        <CameraIcon sx={{mr: 2}}/>
-        <Typography variant="h6" color="inherit" noWrap sx={{flexGrow: 1}}>
+        <CameraIcon
+          onClick={() => navigate("/")}
+          sx={{mr: 2}}/>
+        <Typography
+          onClick={() => navigate("/")}
+          variant="h6"
+          color="inherit"
+          noWrap
+          sx={{flexGrow: 1}}>
           Lost&Found
         </Typography>
         {user ?
@@ -82,6 +90,7 @@ function App() {
       <Route path='/' element={<Layout/>}>
         <Route index element={<ProtectedRoute user={user}><Home/></ProtectedRoute>}/>
         <Route path='/photo' element={<ProtectedRoute user={user}><PhotoUploadView/></ProtectedRoute>}/>
+        <Route path='/photo/:id' element={<ProtectedRoute user={user}><PhotoView/></ProtectedRoute>}/>
         <Route path='/login' element={<LoginView/>}/>
         <Route path='/registration' element={<RegistrationView/>}/>
       </Route>

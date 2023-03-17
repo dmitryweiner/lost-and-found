@@ -7,6 +7,7 @@ import history from "../history";
 const STALE_TIME = 60 * 1000;
 const CURRENT_USER_QUERY = "currentUser";
 const ALL_PHOTOS_QUERY = "allPhotos";
+const PHOTO_QUERY = "photo";
 const ALL_TAGS_QUERY = "allTags";
 
 export const queryClient = new QueryClient({
@@ -76,6 +77,13 @@ export const useCreatePhotoMutation = () => useMutation(
 export const useAllPhotosQuery = (query: string) => useQuery(
   [ALL_PHOTOS_QUERY, query],
   () => API.photo.getAll(query)
+);
+
+export const usePhotoQuery = (id: number) => useQuery(
+  [PHOTO_QUERY, id],
+  () => API.photo.getById(id), {
+    enabled: !!id
+  }
 );
 
 export const useAllTagsQuery = () => useQuery(

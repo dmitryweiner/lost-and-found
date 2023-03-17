@@ -63,7 +63,8 @@ export const API = {
       tags,
       filename
     }),
-    getAll: (query: string) => client.get<never, Photo[]>(`/photo/?query=${query}`)
+    getAll: (query: string) => client.get<never, Photo[]>(`/photo/?query=${query}`),
+    getById: (id: number) => client.get<never, Photo>(`/photo/${id}`),
   },
   tag: {
     getAll: () => client.get<never, Tag[]>("/tag"),

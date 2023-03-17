@@ -28,6 +28,7 @@ export type Photo = {
   id: number;
   filename: string;
   Tags: Tag[];
+  createdAt: string;
 }
 
 export type FileType = {

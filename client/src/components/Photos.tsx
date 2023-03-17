@@ -12,9 +12,10 @@ import {
   Grid
 } from "@mui/material";
 import {BASE_URL} from "../servises/api";
+import {useNavigate} from "react-router-dom";
 
 const ListItem = styled('li')(({theme}) => ({
-  margin: theme.spacing(0),
+  marginRight: theme.spacing(0.1),
 }));
 
 type PhotosProps = {
@@ -25,6 +26,7 @@ type PhotosProps = {
 }
 
 function Photos({photos, isLoading, query, setQuery}: PhotosProps) {
+  const navigate = useNavigate();
   return <Container sx={{
     py: 1,
   }}>
@@ -43,6 +45,7 @@ function Photos({photos, isLoading, query, setQuery}: PhotosProps) {
                 <CardMedia
                   component="img"
                   image={`${BASE_URL}/public/${photo.filename}`}
+                  onClick={() => navigate(`/photo/${photo.id}`)}
                 />
                 <CardActions>
                   <Box
