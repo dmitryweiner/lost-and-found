@@ -10,6 +10,13 @@ const Tag = sequelize => sequelize.define('Tag', {
         type: DataTypes.STRING,
         allowNull: false
     }
+}, {
+    indexes: [
+        {
+            using: "BTREE",
+            fields: ["name"]
+        }
+    ]
 });
 
 module.exports = {

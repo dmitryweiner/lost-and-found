@@ -1,5 +1,4 @@
 const express = require('express');
-const md5 = require('md5');
 const authRouter = express.Router();
 const {NotFoundError, BadRequestError} = require("../errors");
 const {addToken, deleteByToken} = require("../models/token");
@@ -16,7 +15,7 @@ authRouter.post("/", async (req, res, next) => {
             throw new NotFoundError("User not found.");
         }
 
-        if (user.password !== md5(req.body.password)) { // TODO: hash
+        if (!user.validPassword(req.body.password)) {
             throw new BadRequestError("Wrong password.");
         }
 

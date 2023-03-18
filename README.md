@@ -1,7 +1,7 @@
 # Lost and Found
 > Application for fast search of needful things
 
-### [Live web-application](https://lost-and-found-6l4m.onrender.com/) (powered by [render.com](https://render.com/)) 
+### [Live web-application](https://lost-and-found-6l4m.onrender.com/) (hosted by [render.com](https://render.com/)) 
 
 ## Technologies
 * Server:
@@ -16,13 +16,16 @@
   * [MaterialUI](https://mui.com/)
 
 ## Use cases
+
 ### Registration
 * Anonymous user can enter username and password.
 * User should repeat password.
 * User can sing up.
+
 ### Login
 * User can enter username and password.
 * User should be able to sign in.
+
 ### Main page
 * This page should be accessible only to logged user. 
 If user not logged in, she should be redirected to login page.
@@ -32,34 +35,50 @@ If user not logged in, she should be redirected to login page.
 * User can view all her photos.
   * Photos should show associated tags.
 * User can go to upload page.
+
 ### Upload page
 * This is protected page.
 * User can select photo from local disk.
 * User can add associated tags.
 * User can upload photo.
 
+### Photo page
+* This is protected page.
+* This page is accessible from clicking on the photo.
+* User can view photo and associated tags.
+* User can delete photo via dialog.
+
+### Profile page
+* This is protected page.
+* This page is accessible from clicking on the username.
+* User can view all tags and delete them.
+* User can view amount of photos.
+* User can change password.
+
 ## Server API
+
 ### /user
 * `POST` register
 * `GET /` get current user
 * `GET /:id` get current user by ID
+
 ### /auth
 * `POST` authentication
 * `GET` get current authentication status
 * `DELETE` finish sesstion
+
 ### /file
 * `POST` upload file
+
 ### /photo
-* `POST` create photo record
-* `PUT /:id` update photo record
+* `POST` create photo
 * `GET /:id` get photo by ID
 * `GET /?query=abc` search photos by a query string
+* `PUT /:id` update photo
+* `DELETE /:id` delete photo
 
 ### /tag
-* `POST` create photo record
-* `PUT /:id` update photo record
-* `GET /:id` get photo by ID
-* `GET /?query=abc` search photos by a query string
+* `DELETE /:id` delete tag
 
 ## Database
 
@@ -110,9 +129,9 @@ npm start
   * [x] Material UI fancy design.
   * [x] Move to PostgresSQL.
   * [x] Change favicon.
-  * [ ] Change color scheme https://bareynol.github.io/mui-theme-creator/
-  * [ ] [Use bcrypt for password hash](https://stackoverflow.com/questions/34120548/using-bcrypt-with-sequelize-model).
+  * [x] [Use bcrypt for password hash](https://stackoverflow.com/questions/34120548/using-bcrypt-with-sequelize-model).
   * [ ] Use JWT token https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
+  * [ ] Create nice color scheme https://bareynol.github.io/mui-theme-creator/
   * [ ] Use ReduxToolkit + RTKQuery.
   * Networking:
     * [x] Axios (get rid of credentials: include).
@@ -147,7 +166,7 @@ npm start
    * [x] Show associated tags.
    * [x] Edit or "View details" page.
 * View details page:
-  * [ ] Delete button (with dialog).
+  * [x] Delete button (with dialog).
 * Login/registration pages:
   * [x] View password.
   * [x] Add capital letters.

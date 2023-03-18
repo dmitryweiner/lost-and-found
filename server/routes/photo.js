@@ -3,8 +3,6 @@ const express = require('express');
 const {getDb} = require("../db");
 const {auth} = require("../middleware/auth");
 const {NotFoundError, NotImplementedError, BadRequestError} = require("../errors");
-const md5 = require("md5");
-const {Op} = require("sequelize");
 const {PUBLIC_FILES_DIR} = require("../middleware/upload");
 const photoRouter = express.Router();
 
@@ -70,7 +68,10 @@ photoRouter.get("/", auth, async (req, res) => {
     });
   } else {
     const tag = await db.models.Tag.findOne({
-      where: {name: query}
+      where: {
+        name: query,
+        UserId: res.locals.userId
+      }
     });
     photos = await db.models.Photo.findAll({
       where: {
