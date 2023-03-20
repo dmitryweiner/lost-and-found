@@ -7,7 +7,7 @@ const userRouter = express.Router();
 
 userRouter.get("/", auth, async (req, res, next) => {
     try {
-        const token = req.cookies.token;
+        const token = req.token;
         const userId = await getUserIdByToken(token);
         const user = await getUserById(userId);
         res.status(200).json(user);
