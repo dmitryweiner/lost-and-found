@@ -130,7 +130,11 @@ npm start
   * [x] Move to PostgresSQL.
   * [x] Change favicon.
   * [x] [Use bcrypt for password hash](https://stackoverflow.com/questions/34120548/using-bcrypt-with-sequelize-model).
-  * [ ] Use JWT token https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
+  * [ ] Use JWT token 
+    * https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
+    * https://developer.okta.com/blog/2019/02/14/modern-token-authentication-in-node-with-express
+    * https://dev.to/mihaiandrei97/jwt-authentication-using-axios-interceptors-55be
+    * https://medium.com/@ryanchenkie_40935/react-authentication-how-to-store-jwt-in-a-cookie-346519310e81
   * [ ] Create nice color scheme https://bareynol.github.io/mui-theme-creator/
   * [ ] Use ReduxToolkit + RTKQuery.
   * Networking:
