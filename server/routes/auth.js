@@ -6,6 +6,8 @@ const {getUserByLogin} = require("../models/user");
 const {auth} = require("../middleware/auth");
 
 const COOKIE_NAME = "token";
+const IS_PROD = process.env.NODE_ENV === 'production';
+const COOKIE_TTL = 24 * 60 * 60 * 1000;
 
 authRouter.post("/", async (req, res, next) => {
     try {
@@ -23,10 +25,11 @@ authRouter.post("/", async (req, res, next) => {
         // @see https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
         const token = await addToken(user.id);
         res.cookie(COOKIE_NAME, token, {
-            maxAge: 24 * 60 * 60 * 1000, // TODO: to const
+            maxAge: COOKIE_TTL,
             httpOnly: true,
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-            secure: process.env.NODE_ENV === 'production'
+            sameSite: IS_PROD ? 'none' : 'lax',
+            secure: IS_PROD,
+            domain: IS_PROD ? "onrender.com" : "localhost"
         });
 
         res.status(200).json({ok: true});
