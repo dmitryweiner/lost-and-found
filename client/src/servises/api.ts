@@ -1,4 +1,5 @@
 import axios from "axios";
+import {Cookies} from "react-cookie";
 import history from "../history";
 import {
   FileType,
@@ -25,6 +26,23 @@ const client = axios.create({
   }
 });
 
+const COOKIE_NAME = "token";
+const COOKIE_TTL = 24 * 60 * 60 * 1000;
+const cookies = new Cookies();
+
+client.interceptors.request.use(
+  (config) => {
+    const token = cookies.get(COOKIE_NAME);
+    if (token) {
+      config.headers.Authorization = "Bearer " + token;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 client.interceptors.response.use(
   response => response.data,
   async error => {
@@ -41,8 +59,21 @@ client.interceptors.response.use(
 
 export const API = {
   auth: {
-    login: (data: LoginData) => client.post("/auth", data),
-    logout: () => client.delete("/auth"),
+    login: async (data: LoginData) => {
+      const result = await client.post<never, { token: string }>("/auth", data);
+      const d = new Date();
+      d.setTime(d.getTime() + COOKIE_TTL);
+      cookies.set(COOKIE_NAME, result.token, {
+        expires: d,
+        sameSite: "lax"
+      });
+      return Promise.resolve();
+    },
+    logout: async () => {
+      await client.delete("/auth");
+      cookies.remove(COOKIE_NAME);
+      return Promise.resolve();
+    },
   },
   user: {
     register: (data: RegistrationData) => client.post("/user", data),
