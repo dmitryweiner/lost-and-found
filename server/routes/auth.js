@@ -29,7 +29,7 @@ authRouter.post("/", async (req, res, next) => {
             httpOnly: true,
             sameSite: IS_PROD ? 'none' : 'lax',
             secure: IS_PROD,
-            domain: IS_PROD ? "*.onrender.com" : "localhost"
+            domain: IS_PROD ? "onrender.com" : "localhost"
         });
 
         res.status(200).json({ok: true});
