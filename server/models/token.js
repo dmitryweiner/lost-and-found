@@ -1,4 +1,5 @@
-const nanoid = require("nanoid");
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const {DataTypes} = require("sequelize");
 const {getDb} = require("../db");
 
@@ -31,7 +32,7 @@ module.exports = {
     await getDb().models.Token.destroy({where: {token}});
   },
   addToken: async (UserId) => {
-    const token = nanoid();
+    const token = jwt.sign({id: UserId}, process.env.TOKEN_SECRET, { expiresIn: '1d' });
     const tokenRow = await getDb().models.Token.findOne({where: {UserId}});
     if (tokenRow) {
       tokenRow.token = token;

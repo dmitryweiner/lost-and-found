@@ -78,6 +78,7 @@ If user not logged in, she should be redirected to login page.
 * `DELETE /:id` delete photo
 
 ### /tag
+* `GET /` get all tags of the user
 * `DELETE /:id` delete tag
 
 ## Database
@@ -115,6 +116,7 @@ If user not logged in, she should be redirected to login page.
 
 ```shell
 npm install
+# don't forget to edit .env files and to add API URL and database credentials 
 ```
 
 ### Run both server and client
@@ -130,7 +132,7 @@ npm start
   * [x] Move to PostgresSQL.
   * [x] Change favicon.
   * [x] [Use bcrypt for password hash](https://stackoverflow.com/questions/34120548/using-bcrypt-with-sequelize-model).
-  * [ ] Use JWT token 
+  * [x] Use JWT token 
     * https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
     * https://developer.okta.com/blog/2019/02/14/modern-token-authentication-in-node-with-express
     * https://dev.to/mihaiandrei97/jwt-authentication-using-axios-interceptors-55be

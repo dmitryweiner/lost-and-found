@@ -49,6 +49,10 @@ app.use(async function (err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = err;
 
+    if (process.env.NODE_ENV !== 'production') {
+        console.error(err);
+    }
+
     // render the error page
     res.status(err.status || 500);
     res.json({ error: err.message });

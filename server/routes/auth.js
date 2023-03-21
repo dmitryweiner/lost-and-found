@@ -18,8 +18,6 @@ authRouter.post("/", async (req, res, next) => {
             throw new BadRequestError("Wrong password.");
         }
 
-        // TODO: JWT token
-        // @see https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
         const token = await addToken(user.id);
         res.status(200).json({token});
     } catch (err) {
