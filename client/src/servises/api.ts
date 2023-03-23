@@ -11,6 +11,7 @@ import {
   User
 } from "../interfaces";
 import toast from "react-hot-toast";
+import routes from "./routes";
 
 export type ErrorResponse = {
   error: string;
@@ -48,7 +49,7 @@ client.interceptors.response.use(
   async error => {
     let message = error.response?.data?.error ?? error.message;
     if (error.response?.status === 401) {
-      history.replace("/login");
+      history.replace(routes.login);
     } else {
       toast.error(message);
     }

@@ -31,7 +31,7 @@ const PhotoView = () => {
   const handleDelete = () => {
     (async () => {
       await deletePhotoMutation.mutateAsync(parseInt(id!!));
-      navigate("/");
+      navigate(-1);
     })();
   };
 
@@ -100,7 +100,7 @@ const PhotoView = () => {
                   display="flex"
                   justifyContent="center"
                 >
-                  <Button size="large" onClick={() => navigate("/")}>Back</Button>
+                  <Button size="large" onClick={() => navigate(-1)}>Back</Button>
                   <Button size="large" color="warning" onClick={() => setDeleteDialogVisible(true)}>Delete</Button>
                 </Box>
               </CardActions>

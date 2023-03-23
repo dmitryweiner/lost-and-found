@@ -52,7 +52,7 @@ const PhotoUploadView = () => {
       const data = await fileUploadMutation.mutateAsync(formData);
       const filename = data.filename;
       await createPhotoMutation.mutateAsync({tags: actualTags, filename});
-      navigate("/");
+      navigate(-1);
     } catch (e) {
       console.error(e);
     } finally {

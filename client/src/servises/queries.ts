@@ -3,6 +3,7 @@ import {API} from "./api";
 import {FileType, LoginData, PhotoData, RegistrationData} from "../interfaces";
 import toast from "react-hot-toast";
 import history from "../history";
+import routes from "./routes";
 
 const STALE_TIME = 60 * 1000;
 const CURRENT_USER_QUERY = "currentUser";
@@ -23,7 +24,7 @@ export const useLoginMutation = ()  => useMutation(
   (data: LoginData) => API.auth.login(data),
   {
     onSuccess: () => {
-      history.replace("/");
+      history.replace(routes.home);
       toast.success("User successfully logged in.");
       queryClient.invalidateQueries([CURRENT_USER_QUERY]);
     },
@@ -36,7 +37,7 @@ export const useRegisterMutation = ()  => useMutation(
     onSuccess: () => {
       toast.success("User successfully created.");
       setTimeout(() => {
-        history.replace("/login");
+        history.replace(routes.login);
       }, 1000);
     },
   }
@@ -49,7 +50,7 @@ export const useLogoutMutation = () => useMutation(
       queryClient.clear();
       toast.success("User successfully logged out.");
       setTimeout(() => {
-        history.replace("/login");
+        history.replace(routes.login);
       }, 1000);
     },
   }

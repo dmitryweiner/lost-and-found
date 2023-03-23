@@ -5,18 +5,28 @@ import {
   Routes,
   useNavigate
 } from 'react-router-dom';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Box,
+  CircularProgress
+} from "@mui/material";
 import './App.css';
+import routes from './servises/routes';
 import Home from "./views/Home";
 import Layout from "./views/Layout";
 import LoginView from "./views/LoginView";
 import RegistrationView from "./views/RegistrationView";
 import PhotoUploadView from "./views/PhotoUploadView";
-import {AppBar, Toolbar, Typography, Button, Box, CircularProgress} from "@mui/material";
+import PhotoView from "./views/PhotoView";
+import ProfileView from "./views/ProfileView";
 import CameraIcon from '@mui/icons-material/PhotoCamera';
 import {useCurrentUserQuery, useLogoutMutation} from "./servises/queries";
 import {User} from "./interfaces";
 import PersonIcon from '@mui/icons-material/Person';
-import PhotoView from "./views/PhotoView";
+
 
 type ProtectedRouteType = {
   user?: User,
@@ -59,10 +69,10 @@ function App() {
     <AppBar position="fixed">
       <Toolbar>
         <CameraIcon
-          onClick={() => navigate("/")}
+          onClick={() => navigate(routes.home)}
           sx={{mr: 2}}/>
         <Typography
-          onClick={() => navigate("/")}
+          onClick={() => navigate(routes.home)}
           variant="h6"
           color="inherit"
           noWrap
@@ -71,8 +81,13 @@ function App() {
         </Typography>
         {user ?
           <>
-            <PersonIcon/>
-            <Typography variant="body1" color="inherit" sx={{fontWeight: 'bold'}}>
+            <PersonIcon
+              onClick={() => navigate(routes.profile)}/>
+            <Typography
+              onClick={() => navigate(routes.profile)}
+              variant="body1"
+              color="inherit"
+              sx={{fontWeight: 'bold'}}>
               {user.login}
             </Typography>
             <Button onClick={handleLogout} href="#" variant="outlined" color="secondary" sx={{my: 1, mx: 1.5}}>
@@ -80,7 +95,7 @@ function App() {
             </Button>
           </>
           :
-          <Button onClick={() => navigate("/login")} href="#" variant="outlined" color="secondary"
+          <Button onClick={() => navigate(routes.login)} href="#" variant="outlined" color="secondary"
                   sx={{my: 1, mx: 1.5}}>
             Login
           </Button>
@@ -88,12 +103,13 @@ function App() {
       </Toolbar>
     </AppBar>
     <Routes>
-      <Route path='/' element={<Layout/>}>
+      <Route path={routes.home} element={<Layout/>}>
         <Route index element={<ProtectedRoute user={user}><Home/></ProtectedRoute>}/>
-        <Route path='/photo' element={<ProtectedRoute user={user}><PhotoUploadView/></ProtectedRoute>}/>
-        <Route path='/photo/:id' element={<ProtectedRoute user={user}><PhotoView/></ProtectedRoute>}/>
-        <Route path='/login' element={<LoginView/>}/>
-        <Route path='/registration' element={<RegistrationView/>}/>
+        <Route path={routes.profile} element={<ProtectedRoute user={user}><ProfileView/></ProtectedRoute>}/>
+        <Route path={routes.photoUpload} element={<ProtectedRoute user={user}><PhotoUploadView/></ProtectedRoute>}/>
+        <Route path={routes.photoDetails} element={<ProtectedRoute user={user}><PhotoView/></ProtectedRoute>}/>
+        <Route path={routes.login} element={<LoginView/>}/>
+        <Route path={routes.registration} element={<RegistrationView/>}/>
       </Route>
     </Routes>
   </>;

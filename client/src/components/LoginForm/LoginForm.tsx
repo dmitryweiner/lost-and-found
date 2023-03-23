@@ -1,7 +1,8 @@
 import {FormEvent, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import routes from "../../servises/routes";
 import {Avatar, Box, Button, Grid, Link, TextField, Typography} from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import {useNavigate} from "react-router-dom";
 import PasswordField from "../PasswordField";
 
 export type LoginFormData = {
@@ -108,7 +109,7 @@ export default function LoginForm({onSubmit}: FormProps) {
       </Button>
       <Grid container>
         <Grid item>
-          <Link onClick={() => navigate("/registration")} href="#" variant="body2">
+          <Link onClick={() => navigate(routes.registration)} href="#" variant="body2">
             Don't have an account? Register
           </Link>
         </Grid>

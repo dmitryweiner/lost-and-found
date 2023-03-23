@@ -10,6 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {useAllPhotosQuery, useAllTagsQuery} from "../servises/queries";
 import Tags from "../components/Tags";
 import Photos from "../components/Photos";
+import routes from "../servises/routes";
 
 
 function Home() {
@@ -33,7 +34,7 @@ function Home() {
           spacing={2}
           justifyContent="center"
         >
-          <Button variant="contained" onClick={() => navigate("/photo")}>Upload photo</Button>
+          <Button variant="contained" onClick={() => navigate(routes.photoUpload)}>Upload photo</Button>
         </Stack>
       </Container>
     </Box>
