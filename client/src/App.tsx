@@ -56,7 +56,7 @@ function App() {
   }
 
   return <>
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar>
         <CameraIcon
           onClick={() => navigate("/")}

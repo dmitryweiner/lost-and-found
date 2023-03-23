@@ -155,9 +155,7 @@ npm start
   * [x] Filter already existing tags.
   * [x] Forbid selecting multiple images (mobile).
   * [ ] Form validation.
-  * [ ] Show preview of file.
-  * [ ] Clip sign should be clickable.
-  * [ ] Make photo and upload https://mabelanger.github.io/react-html5-camera-photo/
+  * [ ] Show preview of file https://stackoverflow.com/questions/4459379/preview-an-image-before-it-is-uploaded
 * Home page.
   * [x] get all photos
   * [x] list of tags
