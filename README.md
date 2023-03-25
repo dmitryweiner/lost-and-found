@@ -138,6 +138,7 @@ npm start
     * https://dev.to/mihaiandrei97/jwt-authentication-using-axios-interceptors-55be
     * https://medium.com/@ryanchenkie_40935/react-authentication-how-to-store-jwt-in-a-cookie-346519310e81
   * [ ] Create nice color scheme https://bareynol.github.io/mui-theme-creator/
+  * [ ] Change theme.
   * [ ] Use ReduxToolkit + RTKQuery.
   * Networking:
     * [x] Axios (get rid of credentials: include).
@@ -154,8 +155,8 @@ npm start
   * [x] Enter tags with whitespace.
   * [x] Filter already existing tags.
   * [x] Forbid selecting multiple images (mobile).
-  * [ ] Form validation.
-  * [ ] Show preview of file https://stackoverflow.com/questions/4459379/preview-an-image-before-it-is-uploaded
+  * [x] Form validation.
+  * [x] Show preview of file https://stackoverflow.com/questions/4459379/preview-an-image-before-it-is-uploaded
 * Home page.
   * [x] get all photos
   * [x] list of tags
@@ -167,12 +168,16 @@ npm start
   * [ ] Select multiple tags.
   * [ ] Pagination or infinite loading.
   * Photo block:
-   * [x] Show associated tags.
-   * [x] Edit or "View details" page.
+    * [x] Show associated tags.
+    * [x] Edit or "View details" page.
 * View details page:
   * [x] Delete button (with dialog).
 * Login/registration pages:
   * [x] View password.
   * [x] Add capital letters.
   * [x] Fix blinking on login.
+* Profile page:
+  * [ ] view all tags and delete them (dialog).
+  * [ ] view amount of photos.
+  * [ ] change password.
 

@@ -38,7 +38,7 @@ function Photos({photos, isLoading, query, setQuery}: PhotosProps) {
         :
         <>
           {photos?.map((photo) => (
-            <Grid item key={photo.id} xs={6} sm={4} md={4}>
+            <Grid item key={photo.id} xs={6} md={4}>
               <Card
                 sx={{height: '100%', display: 'flex', flexDirection: 'column'}}
               >

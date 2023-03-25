@@ -1,6 +1,12 @@
 import React, {FormEvent, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import {Box, Typography} from "@mui/material";
+import {
+  Box,
+  Card,
+  CardMedia,
+  Grid,
+  Typography
+} from "@mui/material";
 import {MuiFileInput} from "mui-file-input";
 import {MuiChipsInput} from "mui-chips-input";
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -61,12 +67,20 @@ const PhotoUploadView = () => {
   };
 
   const handleTagsInputChange = (v: string) => {
+    setTagsError("");
     if (v[v.length - 1] === " ") {
       setTags(distinct<string>([...tags, v.trim()]));
       setTagsValue("");
     } else {
       setTagsValue(v);
     }
+  };
+
+  const handleFileChange = (file: File | null) => {
+    if (file) {
+      setFileError("");
+    }
+    setFile(file);
   };
 
   const handleSubmit = (event: FormEvent) => {
@@ -99,14 +113,28 @@ const PhotoUploadView = () => {
         error={tagsError.length > 0}
         helperText={tagsError}
         margin="normal"/>
-      <MuiFileInput
-        value={file}
-        disabled={loading}
-        onChange={file => setFile(file)}
-        fullWidth margin="normal"
-        error={fileError.length > 0}
-        helperText={fileError}
-        inputProps={{accept: "image/*"}}/>
+      <Grid container spacing={1} mt={1}>
+        {file && <Grid item xs={6}>
+          <Card>
+          <CardMedia
+            component="img"
+            sx={{ maxHeight: 140, width: "100%" }}
+            image={URL.createObjectURL(file)}
+          />
+        </Card>
+        </Grid>}
+        <Grid item xs={file ? 6 : 12}>
+          <MuiFileInput
+            value={file}
+            disabled={loading}
+            onChange={handleFileChange}
+            fullWidth margin="normal"
+            error={fileError.length > 0}
+            helperText={fileError}
+            sx={{mt: 0}}
+            inputProps={{accept: "image/*"}}/>
+        </Grid>
+      </Grid>
       <LoadingButton
         loading={loading}
         disabled={loading}
