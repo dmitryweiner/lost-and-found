@@ -156,7 +156,7 @@ npm start
   * [x] Filter already existing tags.
   * [x] Forbid selecting multiple images (mobile).
   * [x] Form validation.
-  * [x] Show preview of file https://stackoverflow.com/questions/4459379/preview-an-image-before-it-is-uploaded
+  * [x] Show preview of photo on upload https://stackoverflow.com/questions/4459379/preview-an-image-before-it-is-uploaded
 * Home page.
   * [x] get all photos
   * [x] list of tags
@@ -165,6 +165,7 @@ npm start
   * [x] Spinner for images.
   * [x] Tile images for mobile.
   * [x] Show "deselect" button on tag.
+  * [ ] Show "Upload your photos" as [alert](https://mui.com/material-ui/react-alert/) which is visible if there are no photos or user not closed it.
   * [ ] Select multiple tags.
   * [ ] Pagination or infinite loading.
   * Photo block:
