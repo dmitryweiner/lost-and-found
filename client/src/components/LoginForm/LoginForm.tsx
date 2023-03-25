@@ -27,8 +27,8 @@ export default function LoginForm({onSubmit}: FormProps) {
 
     setLoginError("");
 
-    if (!/^([a-zA-Z0-9]{4,20})$/.test(login)) {
-      setLoginError("Login should be from 4 to 20 chars and consist of latin letters and numbers.");
+    if (login.length < 4 || login.length > 20) {
+      setLoginError("Login should be from 4 to 20 chars.");
       result = false;
     }
 
