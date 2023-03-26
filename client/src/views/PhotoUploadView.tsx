@@ -114,7 +114,7 @@ const PhotoUploadView = () => {
         helperText={tagsError}
         margin="normal"/>
       <Grid container spacing={1} mt={1}>
-        {file && <Grid item xs={6}>
+        {file && <Grid item xs={3} lg={6}>
           <Card>
           <CardMedia
             component="img"
@@ -123,7 +123,7 @@ const PhotoUploadView = () => {
           />
         </Card>
         </Grid>}
-        <Grid item xs={file ? 6 : 12}>
+        <Grid item xs={file ? 9 : 12} lg={file ? 6 : 12}>
           <MuiFileInput
             value={file}
             disabled={loading}
