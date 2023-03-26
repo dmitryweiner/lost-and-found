@@ -109,7 +109,7 @@ export default function LoginForm({onSubmit}: FormProps) {
       </Button>
       <Grid container>
         <Grid item>
-          <Link onClick={() => navigate(routes.registration)} href="#" variant="body2">
+          <Link onClick={() => navigate(routes.registration)} href="#" variant="body1">
             Don't have an account? Register
           </Link>
         </Grid>
