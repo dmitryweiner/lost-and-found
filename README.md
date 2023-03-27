@@ -178,7 +178,7 @@ npm start
   * [x] Add capital letters.
   * [x] Fix blinking on login.
 * Profile page:
-  * [ ] view all tags and delete them (dialog).
-  * [ ] view amount of photos.
+  * [x] view all tags and delete them (dialog).
+  * [x] view amount of photos.
   * [ ] change password.
 

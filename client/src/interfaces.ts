@@ -17,6 +17,10 @@ export type User = {
   id: number;
   login: string;
   password: string;
+  createdAt: string;
+  modifiedAt: string;
+  Tags?: Tag[];
+  Photos?: Photo[];
 }
 
 export type Tag = {

@@ -9,4 +9,14 @@ tagRouter.get("/", auth, async (req, res) => {
   res.json(tags);
 });
 
+tagRouter.delete("/:id", auth, async (req, res, next) => {
+  try {
+    const tag = await getDb().models.Tag.findByPk(req.params.id);
+    await tag.destroy();
+    res.status(200).end();
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = tagRouter;

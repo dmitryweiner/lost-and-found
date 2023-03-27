@@ -7,6 +7,7 @@ import routes from "./routes";
 
 const STALE_TIME = 60 * 1000;
 const CURRENT_USER_QUERY = "currentUser";
+const DETAILED_USER_QUERY = "detailedUser";
 const ALL_PHOTOS_QUERY = "allPhotos";
 const PHOTO_QUERY = "photo";
 const ALL_TAGS_QUERY = "allTags";
@@ -61,6 +62,11 @@ export const useCurrentUserQuery = () => useQuery(
   () => API.user.getCurrentUser()
 );
 
+export const useDetailedUserQuery = () => useQuery(
+  [DETAILED_USER_QUERY],
+  () => API.user.getCurrentUser(true)
+);
+
 export const useFileUploadMutation = () => useMutation<FileType, unknown, FormData>(
   (formData: FormData) => API.file.upload(formData)
 );
@@ -70,7 +76,8 @@ export const useCreatePhotoMutation = () => useMutation(
   {
     onSuccess: () => Promise.all([
       queryClient.invalidateQueries({queryKey: [ALL_PHOTOS_QUERY]}),
-      queryClient.invalidateQueries({queryKey:[ALL_TAGS_QUERY]})
+      queryClient.invalidateQueries({queryKey:[ALL_TAGS_QUERY]}),
+      queryClient.invalidateQueries({queryKey: [DETAILED_USER_QUERY]})
     ])
   }
 );
@@ -82,6 +89,13 @@ export const useDeletePhotoMutation = () => useMutation(
       queryClient.invalidateQueries({queryKey: [ALL_PHOTOS_QUERY]}),
       queryClient.invalidateQueries({queryKey:[ALL_TAGS_QUERY]})
     ])
+  }
+);
+
+export const useDeleteTagMutation = () => useMutation(
+  (id: number) => API.tag.deleteById(id),
+  {
+    onSuccess: () => queryClient.invalidateQueries({queryKey: [DETAILED_USER_QUERY]})
   }
 );
 

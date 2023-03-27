@@ -78,7 +78,7 @@ export const API = {
   },
   user: {
     register: (data: RegistrationData) => client.post("/user", data),
-    getCurrentUser: () => client.get<never, User>("/user"),
+    getCurrentUser: (isFull = false) => client.get<never, User>(`/user${isFull ? "?full=true" : ""}`)
   },
   file: {
     upload: (formData: FormData) => client.post<never, FileType>("/file",
@@ -101,7 +101,8 @@ export const API = {
   },
   tag: {
     getAll: () => client.get<never, Tag[]>("/tag"),
-    getById: (id: number) => client.get<never, Tag>(`/tag/${id}`)
+    getById: (id: number) => client.get<never, Tag>(`/tag/${id}`),
+    deleteById: (id: number) => client.delete<never, void>(`/tag/${id}`)
   }
 
 };

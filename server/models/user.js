@@ -48,5 +48,4 @@ module.exports = {
   },
   getUsers: async () => await getDb().models.User.findAll(),
   getUserByLogin: async (login) => await getDb().models.User.findOne({where: {login}}),
-  getUserById: async (id) => await getDb().models.User.findByPk(id),
 }
