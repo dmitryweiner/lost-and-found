@@ -12,8 +12,8 @@ import {MuiChipsInput} from "mui-chips-input";
 import LoadingButton from '@mui/lab/LoadingButton';
 import {useCreatePhotoMutation, useFileUploadMutation} from "../servises/queries";
 import {distinct} from "../servises/utils";
-import {ObjectDetection, load} from "@tensorflow-models/coco-ssd";
-
+import {ModelConfig, ObjectDetection} from "@tensorflow-models/coco-ssd";
+export declare function load(config?: ModelConfig): Promise<ObjectDetection>;
 
 const PhotoUploadView = () => {
   const navigate = useNavigate();
