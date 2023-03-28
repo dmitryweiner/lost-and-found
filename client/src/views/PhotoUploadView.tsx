@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from 'react';
+import React, {FormEvent, SyntheticEvent, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {
   Box,
@@ -12,6 +12,8 @@ import {MuiChipsInput} from "mui-chips-input";
 import LoadingButton from '@mui/lab/LoadingButton';
 import {useCreatePhotoMutation, useFileUploadMutation} from "../servises/queries";
 import {distinct} from "../servises/utils";
+import {ObjectDetection, load} from "@tensorflow-models/coco-ssd";
+
 
 const PhotoUploadView = () => {
   const navigate = useNavigate();
@@ -23,11 +25,32 @@ const PhotoUploadView = () => {
   const [tagsValue, setTagsValue] = useState("");
   const [fileError, setFileError] = useState("");
   const [tagsError, setTagsError] = useState("");
+  const [cocoSsdModel, setCocoSsdModel] = useState<ObjectDetection | undefined>();
+  const [imageDetected, setImageDetected] = useState(false);
 
   let actualTags = [...tags];
   if (tagsValue.length > 0) {
     actualTags = distinct([...tags, tagsValue.trim()]);
   }
+
+  const initModel = async () => {
+    const model = await load();
+    setCocoSsdModel(model);
+  };
+
+  useEffect(() => {
+    initModel();
+  }, []);
+
+  const onImageLoad = (event: SyntheticEvent<HTMLImageElement>) => {
+    const image = event.target as HTMLImageElement;
+    cocoSsdModel?.detect(image).then(results => {
+      if (!imageDetected) {
+        setImageDetected(true);
+        setTags(distinct<string>([...actualTags, ...results.map(element => element.class)]));
+      }
+    });
+  };
 
   const isValid = () => {
     let result = true;
@@ -79,6 +102,7 @@ const PhotoUploadView = () => {
   const handleFileChange = (file: File | null) => {
     if (file) {
       setFileError("");
+      setImageDetected(false);
     }
     setFile(file);
   };
@@ -116,12 +140,13 @@ const PhotoUploadView = () => {
       <Grid container spacing={1} mt={1}>
         {file && <Grid item xs={3} lg={6}>
           <Card>
-          <CardMedia
-            component="img"
-            sx={{ maxHeight: 140, width: "100%" }}
-            image={URL.createObjectURL(file)}
-          />
-        </Card>
+            <CardMedia
+              component="img"
+              onLoad={onImageLoad}
+              sx={{maxHeight: 140, width: "100%"}}
+              image={URL.createObjectURL(file)}
+            />
+          </Card>
         </Grid>}
         <Grid item xs={file ? 9 : 12} lg={file ? 6 : 12}>
           <MuiFileInput

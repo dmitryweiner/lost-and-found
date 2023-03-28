@@ -17,6 +17,10 @@
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
   <title>Lost and Found</title>
   <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+  <!-- Import TensorFlow.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js" async type="text/javascript"></script>
+  <!-- Load the coco-ssd model to use to recognize things in images -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd" async></script>
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
