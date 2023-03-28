@@ -34,7 +34,8 @@ const PhotoUploadView = () => {
   }
 
   const initModel = async () => {
-    const model = await load();
+    // @ts-ignore
+    const model = await cocoSsd.load();
     setCocoSsdModel(model);
   };
 
