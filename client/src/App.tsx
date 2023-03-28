@@ -76,7 +76,10 @@ function App() {
           variant="h6"
           color="inherit"
           noWrap
-          sx={{flexGrow: 1}}>
+          sx={{
+            flexGrow: 1,
+            overflow: "visible",
+          }}>
           Lost&Found
         </Typography>
         {user ?
@@ -87,7 +90,12 @@ function App() {
               onClick={() => navigate(routes.profile)}
               variant="body1"
               color="inherit"
-              sx={{fontWeight: 'bold'}}>
+              sx={{
+                flexGrow: 0,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                fontWeight: "bold"
+              }}>
               {user.login}
             </Typography>
             <Button onClick={handleLogout} href="#" variant="outlined" color="secondary" sx={{my: 1, mx: 1.5}}>
