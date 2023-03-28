@@ -48,4 +48,21 @@ userRouter.post("/", async (req, res, next) => {
     }
 });
 
+userRouter.patch("/", auth, async (req, res, next) => {
+    try {
+        if (!req.body?.password) {
+            throw new BadRequestError("Necessary fields should exist.");
+        }
+
+        const token = req.token;
+        const userId = await getUserIdByToken(token);
+        const user = await getDb().models.User.findByPk(userId);
+        user.set("password", req.body?.password);
+        user.save();
+        res.status(200).json(user);
+    } catch (err) {
+        next(err);
+    }
+});
+
 module.exports = userRouter;

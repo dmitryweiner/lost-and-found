@@ -44,6 +44,16 @@ export const useRegisterMutation = ()  => useMutation(
   }
 );
 
+export const useUpdateUserMutation = ()  => useMutation(
+  (data: {password: string}) => API.user.update(data),
+  {
+    onSuccess: () => {
+      toast.success("User successfully updated.");
+      return queryClient.invalidateQueries({queryKey: [DETAILED_USER_QUERY]});
+    },
+  }
+);
+
 export const useLogoutMutation = () => useMutation(
   () => API.auth.logout(),
   {
@@ -95,7 +105,10 @@ export const useDeletePhotoMutation = () => useMutation(
 export const useDeleteTagMutation = () => useMutation(
   (id: number) => API.tag.deleteById(id),
   {
-    onSuccess: () => queryClient.invalidateQueries({queryKey: [DETAILED_USER_QUERY]})
+    onSuccess: () => Promise.all([
+      queryClient.invalidateQueries({queryKey: [DETAILED_USER_QUERY]}),
+      queryClient.invalidateQueries({queryKey: [ALL_TAGS_QUERY]})
+    ])
   }
 );
 

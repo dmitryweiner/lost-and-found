@@ -15,7 +15,7 @@ import {
 import {BASE_URL} from "../servises/api";
 import {styled} from "@mui/material/styles";
 import {useDeletePhotoMutation, usePhotoQuery} from "../servises/queries";
-import PhotoDeleteDialog from "../components/PhotoDeleteDialog";
+import PhotoDeleteDialog from "../components/dialogs/PhotoDeleteDialog";
 
 const ListItem = styled('li')(({theme}) => ({
   marginLeft: theme.spacing(0.1),
@@ -100,8 +100,18 @@ const PhotoView = () => {
                   display="flex"
                   justifyContent="center"
                 >
-                  <Button size="large" onClick={() => navigate(-1)}>Back</Button>
-                  <Button size="large" color="warning" onClick={() => setDeleteDialogVisible(true)}>Delete</Button>
+                  <Button
+                    variant="contained"
+                    onClick={() => navigate(-1)}>
+                    Back
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="warning"
+                    onClick={() => setDeleteDialogVisible(true)}
+                    sx={{ml: 1}}>
+                    Delete
+                  </Button>
                 </Box>
               </CardActions>
             </Card>

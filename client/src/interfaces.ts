@@ -18,7 +18,7 @@ export type User = {
   login: string;
   password: string;
   createdAt: string;
-  modifiedAt: string;
+  updatedAt: string;
   Tags?: Tag[];
   Photos?: Photo[];
 }

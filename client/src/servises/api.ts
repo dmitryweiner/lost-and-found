@@ -78,7 +78,8 @@ export const API = {
   },
   user: {
     register: (data: RegistrationData) => client.post("/user", data),
-    getCurrentUser: (isFull = false) => client.get<never, User>(`/user${isFull ? "?full=true" : ""}`)
+    getCurrentUser: (isFull = false) => client.get<never, User>(`/user${isFull ? "?full=true" : ""}`),
+    update: (data: {password: string}) => client.patch("/user", data)
   },
   file: {
     upload: (formData: FormData) => client.post<never, FileType>("/file",

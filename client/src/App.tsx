@@ -98,12 +98,12 @@ function App() {
               }}>
               {user.login}
             </Typography>
-            <Button onClick={handleLogout} href="#" variant="outlined" color="secondary" sx={{my: 1, mx: 1.5}}>
+            <Button onClick={handleLogout} variant="outlined" color="secondary" sx={{my: 1, mx: 1.5}}>
               Logout
             </Button>
           </>
           :
-          <Button onClick={() => navigate(routes.login)} href="#" variant="outlined" color="secondary"
+          <Button onClick={() => navigate(routes.login)} variant="outlined" color="secondary"
                   sx={{my: 1, mx: 1.5}}>
             Login
           </Button>
