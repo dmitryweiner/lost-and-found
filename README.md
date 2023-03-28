@@ -180,5 +180,5 @@ npm start
 * Profile page:
   * [x] view all tags and delete them (dialog).
   * [x] view amount of photos.
-  * [ ] change password.
+  * [x] change password.
 
