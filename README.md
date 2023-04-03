@@ -1,5 +1,7 @@
 # Lost and Found
-> Application for fast search of needful things
+> ### Killer feature: AI image objects detection
+> #### Powered by [Clarifai](https://clarifai.com)
+> Application for fast image categorization and searching
 
 ### [Live web-application](https://lost-and-found-6l4m.onrender.com/) (hosted by [render.com](https://render.com/)) 
 
@@ -14,6 +16,7 @@
   * [React Query](https://react-query-v3.tanstack.com/)
   * [Axios](https://axios-http.com/docs/intro)
   * [MaterialUI](https://mui.com/)
+  * [Clarifai general image recognition model](https://clarifai.com/clarifai/main/models/general-image-recognition)
 
 ## Use cases
 

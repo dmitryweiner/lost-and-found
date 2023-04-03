@@ -1,5 +1,5 @@
 {
-  "name": "express-auth-example",
+  "name": "lost-and-found",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dmitryweiner/express-auth-example.git"
+    "url": "git+https://github.com/dmitryweiner/lost-and-found.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dmitryweiner/express-auth-example/issues"
+    "url": "https://github.com/dmitryweiner/lost-and-found/issues"
   },
-  "homepage": "https://github.com/dmitryweiner/express-auth-example#readme",
+  "homepage": "https://github.com/dmitryweiner/lost-and-found#readme",
   "devDependencies": {
     "concurrently": "^7.5.0"
   }
