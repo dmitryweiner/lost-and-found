@@ -12,7 +12,6 @@ import {
   Grid,
   Typography
 } from "@mui/material";
-import {BASE_URL} from "../servises/api";
 import {styled} from "@mui/material/styles";
 import {useDeletePhotoMutation, usePhotoQuery} from "../servises/queries";
 import PhotoDeleteDialog from "../components/dialogs/PhotoDeleteDialog";

@@ -1,4 +1,4 @@
-import React, {FormEvent, SyntheticEvent, useEffect, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {
   Box,
@@ -31,7 +31,7 @@ const PhotoUploadView = () => {
   useEffect(() => {
     const detectedTags = detectQuery.data?.slice(0, DETECTED_TAGS_COUNT).map(it => it.name) ?? [];
     if (detectedTags.length > 0) {
-      setTags(distinct([...tags, ...detectedTags]));
+      setTags(tags => distinct([...tags, ...detectedTags]));
     }
   }, [detectQuery.data]);
 

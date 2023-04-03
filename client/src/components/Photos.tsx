@@ -11,7 +11,6 @@ import {
   Container,
   Grid
 } from "@mui/material";
-import {BASE_URL} from "../servises/api";
 import {useNavigate} from "react-router-dom";
 import {getPhotoUrl} from "../servises/utils";
 
