@@ -11,6 +11,7 @@ const DETAILED_USER_QUERY = "detailedUser";
 const ALL_PHOTOS_QUERY = "allPhotos";
 const PHOTO_QUERY = "photo";
 const ALL_TAGS_QUERY = "allTags";
+const DETECT_IMAGE_QUERY = "detectImage";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -79,6 +80,14 @@ export const useDetailedUserQuery = () => useQuery(
 
 export const useFileUploadMutation = () => useMutation<FileType, unknown, FormData>(
   (formData: FormData) => API.file.upload(formData)
+);
+
+export const useDetectImageQuery = (filename?: string) => useQuery(
+  [DETECT_IMAGE_QUERY, filename],
+  () => API.clarifai.detect(filename!!),
+  {
+    enabled: !!filename
+  }
 );
 
 export const useCreatePhotoMutation = () => useMutation(

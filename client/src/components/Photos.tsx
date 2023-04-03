@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import {BASE_URL} from "../servises/api";
 import {useNavigate} from "react-router-dom";
+import {getPhotoUrl} from "../servises/utils";
 
 const ListItem = styled('li')(({theme}) => ({
   marginRight: theme.spacing(0.1),
@@ -44,7 +45,7 @@ function Photos({photos, isLoading, query, setQuery}: PhotosProps) {
               >
                 <CardMedia
                   component="img"
-                  image={`${BASE_URL}/public/${photo.filename}`}
+                  image={getPhotoUrl(photo.filename)}
                   onClick={() => navigate(`/photo/${photo.id}`)}
                 />
                 <CardActions>

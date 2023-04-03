@@ -10,10 +10,8 @@ import {
 import {MuiFileInput} from "mui-file-input";
 import {MuiChipsInput} from "mui-chips-input";
 import LoadingButton from '@mui/lab/LoadingButton';
-import {useCreatePhotoMutation, useFileUploadMutation} from "../servises/queries";
+import {useCreatePhotoMutation, useDetectImageQuery, useFileUploadMutation} from "../servises/queries";
 import {distinct} from "../servises/utils";
-import {ModelConfig, ObjectDetection} from "@tensorflow-models/coco-ssd";
-export declare function load(config?: ModelConfig): Promise<ObjectDetection>;
 
 const PhotoUploadView = () => {
   const navigate = useNavigate();
@@ -21,43 +19,30 @@ const PhotoUploadView = () => {
   const fileUploadMutation = useFileUploadMutation();
   const [file, setFile] = useState<File | null>(null);
   const [tags, setTags] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
   const [tagsValue, setTagsValue] = useState("");
   const [fileError, setFileError] = useState("");
   const [tagsError, setTagsError] = useState("");
-  const [cocoSsdModel, setCocoSsdModel] = useState<ObjectDetection | undefined>();
-  const [imageDetected, setImageDetected] = useState(false);
+  const [filename, setFilename] = useState<string | undefined>();
+  const detectQuery = useDetectImageQuery(filename);
+  const loading = createPhotoMutation.isLoading || fileUploadMutation.isLoading || detectQuery.isFetching;
+
+  console.log(detectQuery.data);
 
   let actualTags = [...tags];
   if (tagsValue.length > 0) {
     actualTags = distinct([...tags, tagsValue.trim()]);
   }
 
-  const initModel = async () => {
-    // @ts-ignore
-    const model = await cocoSsd.load();
-    setCocoSsdModel(model);
-  };
-
-  useEffect(() => {
-    initModel();
-  }, []);
-
-  const onImageLoad = (event: SyntheticEvent<HTMLImageElement>) => {
-    const image = event.target as HTMLImageElement;
-    cocoSsdModel?.detect(image).then(results => {
-      if (!imageDetected) {
-        setImageDetected(true);
-        setTags(distinct<string>([...actualTags, ...results.map(element => element.class)]));
-      }
-    });
-  };
-
   const isValid = () => {
     let result = true;
     setFileError("");
     if (!file) {
       setFileError("File should be chosen.");
+      result = false;
+    }
+
+    if (!filename) {
+      setFileError("File not loaded.");
       result = false;
     }
 
@@ -76,17 +61,10 @@ const PhotoUploadView = () => {
     }
 
     try {
-      setLoading(true);
-      const formData = new FormData()
-      formData.append('photo', file!!);
-      const data = await fileUploadMutation.mutateAsync(formData);
-      const filename = data.filename;
-      await createPhotoMutation.mutateAsync({tags: actualTags, filename});
+      await createPhotoMutation.mutateAsync({tags: actualTags, filename: filename!!});
       navigate(-1);
     } catch (e) {
       console.error(e);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -100,10 +78,19 @@ const PhotoUploadView = () => {
     }
   };
 
+  const fileUpload = async (file: File) => {
+    const formData = new FormData()
+    formData.append('photo', file!!);
+    const data = await fileUploadMutation.mutateAsync(formData);
+    const filename = data.filename;
+
+    setFilename(filename);
+  };
+
   const handleFileChange = (file: File | null) => {
     if (file) {
       setFileError("");
-      setImageDetected(false);
+      fileUpload(file);
     }
     setFile(file);
   };
@@ -143,7 +130,6 @@ const PhotoUploadView = () => {
           <Card>
             <CardMedia
               component="img"
-              onLoad={onImageLoad}
               sx={{maxHeight: 140, width: "100%"}}
               image={URL.createObjectURL(file)}
             />

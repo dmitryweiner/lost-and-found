@@ -12,12 +12,14 @@ import {
 } from "../interfaces";
 import toast from "react-hot-toast";
 import routes from "./routes";
+import {getPhotoUrl} from "./utils";
 
 export type ErrorResponse = {
   error: string;
 };
 
 export const BASE_URL = process.env.REACT_APP_API_URL;
+const CLARIFAI_KEY = process.env.REACT_APP_CLARIFAI_KEY;
 
 const client = axios.create({
   baseURL: BASE_URL,
@@ -104,6 +106,34 @@ export const API = {
     getAll: () => client.get<never, Tag[]>("/tag"),
     getById: (id: number) => client.get<never, Tag>(`/tag/${id}`),
     deleteById: (id: number) => client.delete<never, void>(`/tag/${id}`)
+  },
+  clarifai: {
+    detect: async (filename: string) => {
+      const data = {
+        "user_app_id": {
+          "user_id": "clarifai",
+          "app_id": "main"
+        },
+        "inputs": [
+          {
+            "data": {
+              "image": {
+                "url": getPhotoUrl(filename)
+              }
+            }
+          }
+        ]
+      };
+
+      return client.post<never, any>("/v2/models/general-image-recognition/versions/aa7f35c01e0642fda5cf400f543e7c40/outputs",
+        data,
+        {
+          headers: {
+            'Authorization': `Key ${CLARIFAI_KEY}`
+          },
+          baseURL: "https://api.clarifai.com"
+        });
+    }
   }
 
 };

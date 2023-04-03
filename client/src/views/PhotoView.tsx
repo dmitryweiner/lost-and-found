@@ -16,6 +16,7 @@ import {BASE_URL} from "../servises/api";
 import {styled} from "@mui/material/styles";
 import {useDeletePhotoMutation, usePhotoQuery} from "../servises/queries";
 import PhotoDeleteDialog from "../components/dialogs/PhotoDeleteDialog";
+import {getPhotoUrl} from "../servises/utils";
 
 const ListItem = styled('li')(({theme}) => ({
   marginLeft: theme.spacing(0.1),
@@ -59,7 +60,7 @@ const PhotoView = () => {
             >
               <CardMedia
                 component="img"
-                image={`${BASE_URL}/public/${photo?.filename}`}
+                image={getPhotoUrl(photo?.filename)}
               />
               <CardContent>
                 {photo?.Tags && photo?.Tags?.length > 0 && <>
