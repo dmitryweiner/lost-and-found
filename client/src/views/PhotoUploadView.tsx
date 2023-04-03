@@ -13,6 +13,8 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import {useCreatePhotoMutation, useDetectImageQuery, useFileUploadMutation} from "../servises/queries";
 import {distinct} from "../servises/utils";
 
+const DETECTED_TAGS_COUNT = 5;
+
 const PhotoUploadView = () => {
   const navigate = useNavigate();
   const createPhotoMutation = useCreatePhotoMutation();
@@ -27,7 +29,7 @@ const PhotoUploadView = () => {
   const loading = createPhotoMutation.isLoading || fileUploadMutation.isLoading || detectQuery.isFetching;
 
   useEffect(() => {
-    const detectedTags = detectQuery.data?.slice(0, 10).map(it => it.name) ?? [];
+    const detectedTags = detectQuery.data?.slice(0, DETECTED_TAGS_COUNT).map(it => it.name) ?? [];
     if (detectedTags.length > 0) {
       setTags(distinct([...tags, ...detectedTags]));
     }
