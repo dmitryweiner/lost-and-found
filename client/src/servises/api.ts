@@ -129,6 +129,7 @@ export const API = {
         data,
         {
           headers: {
+            'Accept': 'application/json',
             'Authorization': `Key ${CLARIFAI_KEY}`
           },
           baseURL: "https://api.clarifai.com"
