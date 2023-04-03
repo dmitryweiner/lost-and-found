@@ -38,3 +38,10 @@ export type Photo = {
 export type FileType = {
   filename: string;
 }
+
+export type Concept = {
+  id: string;
+  name: string;
+  value: number;
+  app_id: string;
+};

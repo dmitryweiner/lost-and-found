@@ -26,7 +26,12 @@ const PhotoUploadView = () => {
   const detectQuery = useDetectImageQuery(filename);
   const loading = createPhotoMutation.isLoading || fileUploadMutation.isLoading || detectQuery.isFetching;
 
-  console.log(detectQuery.data);
+  useEffect(() => {
+    const detectedTags = detectQuery.data?.slice(0, 10).map(it => it.name) ?? [];
+    if (detectedTags.length > 0) {
+      setTags(distinct([...tags, ...detectedTags]));
+    }
+  }, [detectQuery.data]);
 
   let actualTags = [...tags];
   if (tagsValue.length > 0) {
