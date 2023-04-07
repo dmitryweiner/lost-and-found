@@ -1,7 +1,8 @@
 import axios from "axios";
-import {Cookies} from "react-cookie";
+import { Cookies } from "react-cookie";
 import history from "../history";
 import {
+  ClarifaiResponse,
   Concept,
   FileType,
   LoginData,
@@ -13,7 +14,7 @@ import {
 } from "../interfaces";
 import toast from "react-hot-toast";
 import routes from "./routes";
-import {getPhotoUrl} from "./utils";
+import { getPhotoUrl } from "./utils";
 
 export type ErrorResponse = {
   error: string;
@@ -48,9 +49,9 @@ client.interceptors.request.use(
 );
 
 client.interceptors.response.use(
-  response => response.data,
-  async error => {
-    let message = error.response?.data?.error ?? error.message;
+  (response) => response.data,
+  async (error) => {
+    const message = error.response?.data?.error ?? error.message;
     if (error.response?.status === 401) {
       history.replace(routes.login);
     } else {
@@ -59,7 +60,6 @@ client.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
 
 export const API = {
   auth: {
@@ -77,31 +77,31 @@ export const API = {
       await client.delete("/auth");
       cookies.remove(COOKIE_NAME);
       return Promise.resolve();
-    },
+    }
   },
   user: {
     register: (data: RegistrationData) => client.post("/user", data),
-    getCurrentUser: (isFull = false) => client.get<never, User>(`/user${isFull ? "?full=true" : ""}`),
-    update: (data: {password: string}) => client.patch("/user", data)
+    getCurrentUser: (isFull = false) =>
+      client.get<never, User>(`/user${isFull ? "?full=true" : ""}`),
+    update: (data: { password: string }) => client.patch("/user", data)
   },
   file: {
-    upload: (formData: FormData) => client.post<never, FileType>("/file",
-      formData,
-      {
+    upload: (formData: FormData) =>
+      client.post<never, FileType>("/file", formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
-      }
-    )
+      })
   },
   photo: {
-    create: ({tags, filename}: PhotoData) => client.post<never, Photo>("/photo", {
-      tags,
-      filename
-    }),
+    create: ({ tags, filename }: PhotoData) =>
+      client.post<never, Photo>("/photo", {
+        tags,
+        filename
+      }),
     getAll: (query: string) => client.get<never, Photo[]>(`/photo/?query=${query}`),
     getById: (id: number) => client.get<never, Photo>(`/photo/${id}`),
-    deleteById: (id: number) => client.delete<never, void>(`/photo/${id}`),
+    deleteById: (id: number) => client.delete<never, void>(`/photo/${id}`)
   },
   tag: {
     getAll: () => client.get<never, Tag[]>("/tag"),
@@ -111,33 +111,34 @@ export const API = {
   clarifai: {
     detect: async (filename: string): Promise<Concept[]> => {
       const data = {
-        "user_app_id": {
-          "user_id": "clarifai",
-          "app_id": "main"
+        user_app_id: {
+          user_id: "clarifai",
+          app_id: "main"
         },
-        "inputs": [
+        inputs: [
           {
-            "data": {
-              "image": {
-                "url": getPhotoUrl(filename)
+            data: {
+              image: {
+                url: getPhotoUrl(filename)
               }
             }
           }
         ]
       };
 
-      const response = await client.post<never, any>("/v2/models/general-image-recognition/versions/aa7f35c01e0642fda5cf400f543e7c40/outputs",
+      const response = await client.post<never, ClarifaiResponse>(
+        "/v2/models/general-image-recognition/versions/aa7f35c01e0642fda5cf400f543e7c40/outputs",
         JSON.stringify(data),
         {
           headers: {
-            'Accept': 'application/json',
-            'Authorization': `Key ${CLARIFAI_KEY}`
+            Accept: "application/json",
+            Authorization: `Key ${CLARIFAI_KEY}`
           },
           withCredentials: false,
           baseURL: "https://api.clarifai.com"
-        });
+        }
+      );
       return response.outputs[0].data.concepts;
     }
   }
-
 };

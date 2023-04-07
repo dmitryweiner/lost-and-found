@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import LoginForm, { LoginFormData } from "../components/LoginForm/LoginForm";
-import {useLoginMutation} from "../servises/queries";
+import { useLoginMutation } from "../servises/queries";
 
 const LoginView = () => {
   const loginMutation = useLoginMutation();
@@ -15,7 +15,7 @@ const LoginView = () => {
     authRequest(data);
   };
 
-  return <LoginForm onSubmit={onSubmit}/>;
+  return <LoginForm onSubmit={onSubmit} />;
 };
 
 export default LoginView;

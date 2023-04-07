@@ -1,26 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
-import {Toaster} from "react-hot-toast";
-import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import reportWebVitals from "./reportWebVitals";
+import { Toaster } from "react-hot-toast";
+import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
 import history from "./history";
-import {CssBaseline, ThemeProvider} from "@mui/material";
-import {QueryClientProvider} from '@tanstack/react-query';
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { QueryClientProvider } from "@tanstack/react-query";
 import theme from "./theme";
-import App from './App';
-import './index.css';
-import {queryClient} from "./servises/queries";
+import App from "./App";
+import "./index.css";
+import { queryClient } from "./servises/queries";
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <ThemeProvider theme={theme}>
-    <CssBaseline/>
+    <CssBaseline />
     <HistoryRouter history={history}>
       <QueryClientProvider client={queryClient}>
-        <App/>
-        <Toaster/>
+        <App />
+        <Toaster />
       </QueryClientProvider>
     </HistoryRouter>
   </ThemeProvider>

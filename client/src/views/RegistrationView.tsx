@@ -1,6 +1,8 @@
-import React from 'react';
-import RegistrationForm, { RegistrationFormData } from "../components/RegistrationForm/RegistrationForm";
-import {useRegisterMutation} from "../servises/queries";
+import React from "react";
+import RegistrationForm, {
+  RegistrationFormData
+} from "../components/RegistrationForm/RegistrationForm";
+import { useRegisterMutation } from "../servises/queries";
 
 const RegistrationView = () => {
   const registerMutation = useRegisterMutation();
@@ -16,7 +18,7 @@ const RegistrationView = () => {
     registrationRequest(data);
   };
 
-  return <RegistrationForm onSubmit={onSubmit}/>;
+  return <RegistrationForm onSubmit={onSubmit} />;
 };
 
 export default RegistrationView;

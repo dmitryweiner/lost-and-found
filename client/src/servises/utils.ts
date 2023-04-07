@@ -1,4 +1,4 @@
-import {BASE_URL} from "./api";
+import { BASE_URL } from "./api";
 
 export function distinct<T>(arr: T[]): T[] {
   return Array.from(new Set(arr));

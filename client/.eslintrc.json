@@ -1,0 +1,48 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "prettier"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "prettier/prettier": "error",
+    "react/prop-types": "off",
+    "comma-dangle": "off",
+    "linebreak-style": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/quotes": [
+      "error",
+      "double",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
+    "react/jsx-wrap-multilines": ["error", {
+      "declaration": "parens",
+      "assignment": "parens",
+      "return": "parens-new-line",
+      "arrow": "parens",
+      "condition": "parens",
+      "logical": "parens",
+      "prop": "ignore"
+    }
+    ]
+  }
+}

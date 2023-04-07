@@ -9,8 +9,8 @@ export type RegistrationData = {
 };
 
 export type PhotoData = {
-  tags: string[],
-  filename: string
+  tags: string[];
+  filename: string;
 };
 
 export type User = {
@@ -21,23 +21,31 @@ export type User = {
   updatedAt: string;
   Tags?: Tag[];
   Photos?: Photo[];
-}
+};
 
 export type Tag = {
   id: number;
   name: string;
-}
+};
 
 export type Photo = {
   id: number;
   filename: string;
   Tags: Tag[];
   createdAt: string;
-}
+};
 
 export type FileType = {
   filename: string;
-}
+};
+
+export type ClarifaiResponse = {
+  outputs: {
+    data: {
+      concepts: Concept[];
+    };
+  }[];
+};
 
 export type Concept = {
   id: string;
